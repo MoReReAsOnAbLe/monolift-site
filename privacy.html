@@ -5,18 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — Monolift</title>
 <style>
-:root { --text: #1a1a1a; --muted: #6b7280; --bg: #ffffff; --accent: #FF6B35; --border: rgba(0,0,0,0.08); }
-@media (prefers-color-scheme: dark) { :root { --text: #f4f4f5; --muted: #a1a1aa; --bg: #0a0a0a; --border: rgba(255,255,255,0.08); } }
+:root {
+  --text: #1a1a1a; --muted: #6b6b6b; --bg: #F0E7D2; --accent: #0FB5C6; --border: rgba(0,0,0,0.08);
+  --font-serif: ui-serif, "New York", "Iowan Old Style", "Source Serif Pro", "Hoefler Text", Georgia, "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root { --text: #F4EFE3; --muted: #9a9a9a; --bg: #0a0a0a; --border: rgba(255,255,255,0.10); } }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+body { font-family: var(--font-sans); color: var(--text); background: var(--bg); line-height: 1.6; }
 .container { max-width: 760px; margin: 0 auto; padding: 24px; }
 header { padding: 24px 0; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
-.logo { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
+.logo { font-family: var(--font-serif); font-size: 26px; font-weight: 800; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
 .logo span { color: var(--accent); }
-h1 { font-size: 36px; letter-spacing: -0.02em; margin-bottom: 8px; }
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 800; }
+h1 { font-size: 42px; letter-spacing: -0.02em; margin-bottom: 8px; }
 .updated { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
-h2 { font-size: 22px; margin: 32px 0 12px; letter-spacing: -0.01em; }
-h3 { font-size: 17px; margin: 20px 0 8px; }
+h2 { font-size: 24px; margin: 36px 0 12px; letter-spacing: -0.01em; }
+h3 { font-size: 18px; margin: 20px 0 8px; }
 p, li { color: var(--text); margin-bottom: 12px; }
 ul, ol { padding-left: 24px; margin-bottom: 12px; }
 a { color: var(--accent); }
