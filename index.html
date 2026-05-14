@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monolift — Workout tracking that feels like a game</title>
-<meta name="description" content="Drag-to-dial workout logging, AI coach, monkey buddy. Workouts, meals, weight, water — one app.">
-<meta property="og:title" content="Monolift">
-<meta property="og:description" content="Workout tracking that feels like a game">
+<title>Monolift — Log a set in 5 seconds. Monkey buddy keeps you in the gym.</title>
+<meta name="description" content="The AI workout coach + monkey gym buddy in your pocket. Drag-to-dial logging, AI coach, monkey reactions. Launching this week.">
+<meta property="og:title" content="Monolift — Log a set in 5 seconds.">
+<meta property="og:description" content="The AI workout coach + monkey gym buddy in your pocket. Launching this week.">
 <meta property="og:image" content="https://monolift.app/og-image.png">
 <meta property="og:url" content="https://monolift.app">
 <meta name="twitter:card" content="summary_large_image">
@@ -14,11 +14,14 @@
 <style>
 :root {
   --accent: #FF6B35;
+  --accent-dark: #E55A24;
+  --gold: #F5A623;
   --text: #1a1a1a;
   --muted: #6b7280;
   --bg: #ffffff;
   --card: #f9fafb;
   --border: rgba(0,0,0,0.08);
+  --shadow: 0 20px 50px rgba(0,0,0,0.08);
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -27,6 +30,7 @@
     --bg: #0a0a0a;
     --card: #18181b;
     --border: rgba(255,255,255,0.08);
+    --shadow: 0 20px 50px rgba(0,0,0,0.4);
   }
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,198 +43,576 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-header { padding: 24px 0; }
-.logo { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+
+/* HEADER */
+header { padding: 20px 0; }
+.logo { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
 .logo span { color: var(--accent); }
 
-.hero { padding: 64px 0 48px; text-align: center; }
+/* BUTTONS */
+.btn-primary, button.btn-primary {
+  background: var(--accent);
+  color: white !important;
+  padding: 16px 28px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 16px;
+  display: inline-block;
+  transition: transform 0.1s, background 0.15s;
+  border: none;
+  cursor: pointer;
+  min-height: 44px;
+  font-family: inherit;
+}
+.btn-primary:hover, button.btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+.btn-secondary {
+  background: var(--card);
+  color: var(--text);
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
+  display: inline-block;
+  border: 1px solid var(--border);
+  min-height: 44px;
+}
+
+/* HERO */
+.hero { padding: 32px 0 64px; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+}
 .hero h1 {
-  font-size: clamp(36px, 6vw, 64px);
+  font-size: clamp(34px, 5.5vw, 56px);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.05;
   margin-bottom: 16px;
 }
 .hero h1 em { color: var(--accent); font-style: normal; }
-.hero p.tagline {
-  font-size: clamp(16px, 2vw, 20px);
+.hero .subhead {
+  font-size: clamp(16px, 2vw, 19px);
   color: var(--muted);
-  max-width: 580px;
-  margin: 0 auto 32px;
+  margin-bottom: 28px;
+  max-width: 520px;
 }
-.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.btn-primary {
-  background: var(--accent);
-  color: white !important;
-  padding: 14px 28px;
-  border-radius: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 16px;
-  display: inline-block;
-  transition: transform 0.1s;
-  border: none;
-  cursor: pointer;
-}
-.btn-primary:hover { transform: translateY(-1px); }
-.btn-secondary {
-  background: var(--card);
-  color: var(--text);
-  padding: 14px 28px;
-  border-radius: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 16px;
-  display: inline-block;
-}
+.hero .subhead strong { color: var(--text); font-weight: 600; }
 
-.hero-img { margin: 48px auto 0; max-width: 320px; }
-.hero-img img { width: 100%; height: auto; border-radius: 32px; box-shadow: 0 30px 80px rgba(0,0,0,0.15); }
-
-.features { padding: 80px 0; }
-.features h2 {
-  font-size: clamp(28px, 4vw, 42px);
-  text-align: center;
-  letter-spacing: -0.02em;
-  margin-bottom: 48px;
-  font-weight: 800;
-}
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-}
-.feature {
+/* HERO FORM */
+.waitlist-form {
   background: var(--card);
-  padding: 32px 24px;
+  padding: 20px;
   border-radius: 16px;
+  border: 1px solid var(--border);
+  max-width: 480px;
 }
-.feature .icon { font-size: 32px; margin-bottom: 12px; }
-.feature h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-.feature p { color: var(--muted); font-size: 15px; }
-
-.screenshots-section { padding: 80px 0; }
-.screenshots-section h2 { font-size: clamp(28px, 4vw, 42px); text-align: center; letter-spacing: -0.02em; margin-bottom: 48px; font-weight: 800; }
-.shot-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
+.waitlist-form .row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
-.shot img { width: 100%; height: auto; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-.shot p { text-align: center; margin-top: 12px; color: var(--muted); font-size: 14px; }
-
-.email-capture { padding: 80px 0; text-align: center; }
-.email-capture h2 { font-size: clamp(24px, 3.5vw, 36px); letter-spacing: -0.02em; margin-bottom: 16px; font-weight: 800; }
-.email-capture p { color: var(--muted); margin-bottom: 24px; }
-.email-form { display: flex; max-width: 440px; margin: 0 auto; gap: 8px; flex-wrap: wrap; }
-.email-form input {
+.waitlist-form input[type="email"] {
   flex: 1;
-  min-width: 200px;
+  min-width: 220px;
   padding: 14px 16px;
   border: 1px solid var(--border);
   border-radius: 12px;
   font-size: 16px;
   background: var(--bg);
   color: var(--text);
+  font-family: inherit;
+  min-height: 44px;
+}
+.waitlist-form input[type="email"]:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.waitlist-form .incentive {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.waitlist-form .incentive strong { color: var(--gold); font-weight: 700; }
+.waitlist-form .success {
+  display: none;
+  padding: 20px;
+  background: var(--accent);
+  color: white;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+.waitlist-form.submitted .row,
+.waitlist-form.submitted .incentive { display: none; }
+.waitlist-form.submitted .success { display: block; }
+.waitlist-form .err {
+  display: none;
+  margin-top: 8px;
+  color: #dc2626;
+  font-size: 13px;
 }
 
-footer { padding: 48px 0; text-align: center; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); }
-footer a { color: var(--muted); text-decoration: none; margin: 0 12px; }
-footer a:hover { color: var(--text); }
-footer .logo-foot { margin-bottom: 16px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+/* HERO SCREENSHOT */
+.hero-shot {
+  display: flex;
+  justify-content: center;
+}
+.hero-shot img {
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+  border-radius: 32px;
+  box-shadow: var(--shadow);
+}
+
+/* SCREENSHOTS GRID SECTION */
+.shots { padding: 64px 0; }
+.shots h2,
+.features h2,
+.pricing h2,
+.faq h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  text-align: center;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  font-weight: 800;
+}
+.section-sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+.shot-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 768px) {
+  .shot-row { grid-template-columns: 1fr; gap: 32px; }
+}
+.shot img { width: 100%; height: auto; border-radius: 24px; box-shadow: var(--shadow); }
+.shot p { margin-top: 14px; color: var(--text); font-size: 14px; line-height: 1.5; }
+.shots-cta { text-align: center; margin-top: 40px; }
+
+/* FEATURES */
+.features { padding: 64px 0; background: var(--card); }
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+@media (max-width: 768px) {
+  .feature-grid { grid-template-columns: 1fr; }
+}
+.feature {
+  padding: 24px;
+  background: var(--bg);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+.feature .icon { font-size: 28px; margin-bottom: 10px; }
+.feature h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.feature p { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+/* PRICING */
+.pricing { padding: 64px 0; }
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+@media (max-width: 768px) {
+  .price-grid { grid-template-columns: 1fr; }
+}
+.price-card {
+  background: var(--card);
+  padding: 28px 24px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.price-card.featured {
+  border: 2px solid var(--gold);
+  background: linear-gradient(180deg, var(--card) 0%, var(--bg) 100%);
+  transform: scale(1.02);
+}
+@media (max-width: 768px) {
+  .price-card.featured { transform: none; }
+}
+.price-card .tier {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.price-card.featured .tier { color: var(--gold); }
+.badge {
+  position: absolute;
+  top: -12px;
+  right: 16px;
+  background: var(--gold);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.price-card .price {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.price-card .per { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
+.price-card ul { list-style: none; margin-bottom: 20px; flex: 1; }
+.price-card li { padding: 6px 0; font-size: 15px; }
+.price-card li::before { content: "✓ "; color: var(--accent); font-weight: 800; }
+.price-card .price-cta {
+  background: transparent;
+  color: var(--text);
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid var(--border);
+}
+.price-card.featured .price-cta {
+  background: var(--accent);
+  color: white;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+.pricing .small-print {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 24px;
+}
+
+/* FAQ */
+.faq { padding: 64px 0; background: var(--card); }
+.faq-list { max-width: 720px; margin: 0 auto; }
+.faq details {
+  background: var(--bg);
+  padding: 18px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+.faq summary {
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 24px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: -2px;
+  font-size: 22px;
+  color: var(--accent);
+  transition: transform 0.15s;
+}
+.faq details[open] summary::after { content: "−"; }
+.faq details p {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* FINAL CTA */
+.final-cta {
+  background: var(--accent);
+  color: white;
+  padding: 64px 0;
+  text-align: center;
+}
+.final-cta h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.final-cta p { font-size: 17px; opacity: 0.95; margin-bottom: 24px; }
+.final-cta .btn-on-accent {
+  background: white;
+  color: var(--accent) !important;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 16px;
+  display: inline-block;
+  text-decoration: none;
+  min-height: 44px;
+}
+
+/* FOOTER */
+footer { padding: 32px 0; text-align: center; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); }
+footer .logo-foot { margin-bottom: 12px; font-size: 18px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); display: block; }
 footer .logo-foot span { color: var(--accent); }
+footer a { color: var(--muted); text-decoration: none; margin: 0 10px; }
+footer a:hover { color: var(--text); }
 </style>
 </head>
 <body>
+
 <header>
   <div class="container">
-    <div class="logo">Mono<span>lift</span></div>
+    <a href="/" class="logo">Mono<span>lift</span></a>
   </div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
-  <div class="container">
-    <h1>Workout tracking<br>that feels like<br><em>a game.</em></h1>
-    <p class="tagline">Drag-to-dial logging. AI coach. Monkey buddy. Workouts, meals, weight, water — one app.</p>
-    <div class="cta-row">
-      <a class="btn-primary" href="#waitlist">Join the waitlist</a>
-      <a class="btn-secondary" href="#features">Learn more</a>
+  <div class="container hero-grid">
+    <div>
+      <h1>Log a set in 5 seconds.<br><em>Your monkey buddy</em> never lets you skip leg day.</h1>
+      <p class="subhead">Monolift is the AI workout coach + gym buddy in your pocket. <strong>Launching this week.</strong></p>
+
+      <form id="waitlist" class="waitlist-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="row">
+          <input type="email" name="email" placeholder="you@email.com" required autocomplete="email">
+          <button class="btn-primary" type="submit">Lock my $19.99/yr price →</button>
+        </div>
+        <input type="hidden" name="utm_source" id="utm-field" value="direct">
+        <input type="hidden" name="referer" id="referer-field" value="">
+        <input type="hidden" name="_subject" value="New Monolift waitlist signup">
+        <p class="incentive">
+          <strong>First 100 sign-ups: $19.99/yr LIFETIME price lock.</strong><br>
+          Regular price $39.99/yr. Yours locked forever as long as your subscription stays active.
+        </p>
+        <p class="err" id="form-err">Something went wrong. Email <a href="mailto:hello@monolift.app">hello@monolift.app</a> and we'll add you manually.</p>
+        <div class="success">
+          You're on the Monolift waitlist 🐒<br>
+          Check your inbox for confirmation. App Store link drops the moment it's live.
+        </div>
+      </form>
     </div>
-    <div class="hero-img">
-      <img src="screenshots/hero.png" alt="Monolift app on iPhone" loading="lazy">
+    <div class="hero-shot">
+      <img src="screenshots/hero.png" alt="Monolift app on iPhone" loading="eager">
     </div>
   </div>
 </section>
 
-<section class="features" id="features">
+<!-- SCREENSHOTS -->
+<section class="shots">
   <div class="container">
-    <h2>Built for lifters who actually lift</h2>
+    <h2>What you're locking in</h2>
+    <p class="section-sub">Three screens that tell you everything.</p>
+    <div class="shot-row">
+      <div class="shot">
+        <img src="screenshots/logging.png" alt="Drag-to-dial logging" loading="lazy">
+        <p>Drag to dial weight + reps. No keyboard, no number pad.</p>
+      </div>
+      <div class="shot">
+        <img src="screenshots/monkey.png" alt="Monkey reactions" loading="lazy">
+        <p>Monkey buddy roasts you, hypes you, keeps you in the gym.</p>
+      </div>
+      <div class="shot">
+        <img src="screenshots/coach.png" alt="AI coach" loading="lazy">
+        <p>Flags plateaus. Suggests deloads. Talks back when you slack.</p>
+      </div>
+    </div>
+    <div class="shots-cta">
+      <a class="btn-primary" href="#waitlist">Get the lifetime price lock →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <h2>One app. Workouts, food, weight, monkey.</h2>
+    <p class="section-sub">Built for lifters who actually lift.</p>
     <div class="feature-grid">
       <div class="feature">
-        <div class="icon">🎯</div>
-        <h3>2-second logging</h3>
-        <p>Drag-to-dial sets. No keyboards. No menus. Done in seconds.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">🧠</div>
-        <h3>AI coach in your pocket</h3>
-        <p>Ask anything. Get plans, swaps, form tips. Learns your training.</p>
+        <div class="icon">⚡</div>
+        <h3>Drag-to-dial logging</h3>
+        <p>Log a set in 5 seconds. No keyboard, no number pad. Color-code lifts your way.</p>
       </div>
       <div class="feature">
         <div class="icon">🐒</div>
         <h3>Monkey buddy</h3>
-        <p>Streak guard. Mood reactions. Skip a day, it pouts. Hit it, it celebrates.</p>
+        <p>Reacts to every log. Roasts you when you skip. The Duolingo for fitness, for grown-ups.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🤖</div>
+        <h3>AI coach</h3>
+        <p>Conversational accountability 24/7. Flags plateaus. Suggests deloads. Voice or text.</p>
       </div>
       <div class="feature">
         <div class="icon">📊</div>
-        <h3>One app, four trackers</h3>
-        <p>Workouts. Meals. Weight. Water. No tab-switching across five apps.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">📸</div>
-        <h3>AI food scan</h3>
-        <p>Snap a meal photo. Auto-fills macros. Beats typing in food databases.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">🔒</div>
-        <h3>Yours, always</h3>
-        <p>Local-first. Sync optional. Export anytime. Cancel anytime.</p>
+        <h3>Macros + weight + photos</h3>
+        <p>Barcode-scan food. Track water + body weight. Progress photos with privacy lock.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="screenshots-section">
+<!-- PRICING -->
+<section class="pricing">
   <div class="container">
-    <h2>See it in action</h2>
-    <div class="shot-row">
-      <div class="shot"><img src="screenshots/logging.png" alt="Drag-to-dial logging" loading="lazy"><p>Drag-to-dial logging</p></div>
-      <div class="shot"><img src="screenshots/coach.png" alt="AI coach" loading="lazy"><p>AI coach in your pocket</p></div>
-      <div class="shot"><img src="screenshots/monkey.png" alt="Monkey buddy" loading="lazy"><p>Monkey buddy</p></div>
+    <h2>Simple pricing. 7-day free trial.</h2>
+    <p class="section-sub">All features unlocked on every plan.</p>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="tier">Monthly</div>
+        <div class="price">$9.99</div>
+        <div class="per">per month</div>
+        <ul>
+          <li>7-day free trial</li>
+          <li>All features unlocked</li>
+        </ul>
+        <div class="price-cta">Available at launch</div>
+      </div>
+
+      <div class="price-card featured">
+        <span class="badge">LIMITED — 100 SPOTS</span>
+        <div class="tier">Lifetime Lock</div>
+        <div class="price">$19.99</div>
+        <div class="per">/ year — locked forever ($1.66/mo)</div>
+        <ul>
+          <li>7-day free trial</li>
+          <li>All features unlocked</li>
+          <li>Price locked as long as subscription stays active</li>
+        </ul>
+        <a href="#waitlist" class="price-cta">Lock my price →</a>
+      </div>
+
+      <div class="price-card">
+        <div class="tier">Annual</div>
+        <div class="price">$39.99</div>
+        <div class="per">/ year ($3.33/mo)</div>
+        <ul>
+          <li>7-day free trial</li>
+          <li>All features unlocked</li>
+          <li>Best regular value</li>
+        </ul>
+        <div class="price-cta">Available at launch</div>
+      </div>
+    </div>
+    <p class="small-print">Cancel anytime. No hidden fees.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <h2>Common questions</h2>
+    <p class="section-sub">Everything you'd want to know before joining.</p>
+    <div class="faq-list">
+      <details>
+        <summary>How does the $19.99/yr lifetime price lock work?</summary>
+        <p>First 100 waitlist sign-ups who start a paid subscription at launch get $19.99/yr forever. As long as you keep your subscription active, the price never goes up. Cancel + resubscribe = lose the lock.</p>
+      </details>
+      <details>
+        <summary>When does Monolift launch?</summary>
+        <p>This week. Waitlist members get the App Store link the moment it goes live.</p>
+      </details>
+      <details>
+        <summary>What's the difference between Monolift and other gym apps?</summary>
+        <p>Three things: drag-to-dial logging (log a set in 5 seconds, no keyboard), a monkey buddy that emotionally reacts to your workouts, and a conversational AI coach that flags plateaus. Most gym apps are spreadsheets in disguise. Monolift makes opening the app something you want to do.</p>
+      </details>
+      <details>
+        <summary>Do I have to buy after the free trial?</summary>
+        <p>No. The 7-day trial is full access, no card required upfront on first install. After 7 days, you keep read-only access to your logged data forever, even if you don't subscribe.</p>
+      </details>
+      <details>
+        <summary>What platforms?</summary>
+        <p>iOS first (iPhone + iPad). Android port may come later based on demand.</p>
+      </details>
+      <details>
+        <summary>My data — what happens to it?</summary>
+        <p>Your data syncs to your private cloud account. No ads. No selling data. HealthKit integration is optional. Apple Sign In supported.</p>
+      </details>
+      <details>
+        <summary>Why a monkey?</summary>
+        <p>Because every other gym app is a spreadsheet with a fitness logo. The monkey is your buddy — reacts when you log a PR, roasts you when you ghost the gym, celebrates your streak. It's the difference between an app you use because you "should" and one you actually want to open.</p>
+      </details>
     </div>
   </div>
 </section>
 
-<section class="email-capture" id="waitlist">
+<!-- FINAL CTA -->
+<section class="final-cta">
   <div class="container">
-    <h2>Be first when we launch</h2>
-    <p>One email. No spam. App Store link the day it goes live.</p>
-    <form class="email-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      <input type="email" name="email" placeholder="your@email.com" required>
-      <button class="btn-primary" type="submit">Notify me</button>
-    </form>
+    <h2>Lock $19.99/yr forever.</h2>
+    <p>First 100 waitlist sign-ups only. Then it's $39.99/yr regular.</p>
+    <a href="#waitlist" class="btn-on-accent">Join the waitlist →</a>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="container">
-    <div class="logo-foot">Mono<span>lift</span></div>
-    <a href="/privacy.html">Privacy</a>
-    <a href="/terms.html">Terms</a>
-    <a href="/support.html">Support</a>
-    <a href="mailto:hello@monolift.app">Contact</a>
-    <p style="margin-top: 16px;">© 2026 Monolift. Made for lifters.</p>
+    <a href="/" class="logo-foot">Mono<span>lift</span></a>
+    <div>Coming this week to App Store</div>
+    <div style="margin-top:10px;">
+      <a href="/privacy.html">Privacy</a>·
+      <a href="/support.html">Support</a>·
+      <a href="/terms.html">Terms</a>·
+      <a href="mailto:hello@monolift.app">Contact</a>
+    </div>
+    <div style="margin-top:14px; font-size:12px;">© 2026 Monolift. Made for lifters.</div>
   </div>
 </footer>
+
+<script>
+// Capture UTM source from query string
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var src = params.get('utm_source');
+  if (src) {
+    document.getElementById('utm-field').value = src;
+  }
+  document.getElementById('referer-field').value = document.referrer || '';
+})();
+
+// AJAX form submit (keeps user on page, shows inline success)
+document.getElementById('waitlist').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var form = e.target;
+  var data = new FormData(form);
+  var err = document.getElementById('form-err');
+  err.style.display = 'none';
+
+  fetch(form.action, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).then(function(r) {
+    if (r.ok) {
+      form.classList.add('submitted');
+    } else {
+      err.style.display = 'block';
+    }
+  }).catch(function() {
+    err.style.display = 'block';
+  });
+});
+</script>
+
 </body>
 </html>
