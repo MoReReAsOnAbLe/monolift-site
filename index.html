@@ -11,6 +11,7 @@
 <meta property="og:url" content="https://monolift.app">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.png">
+<script src="https://f.convertkit.com/ckjs/ck.5.js" async></script>
 <style>
 :root {
   /* Light mode — warm cream like the app */
@@ -470,8 +471,12 @@ footer a:hover { color: var(--text); }
           <input type="email" name="email_address" placeholder="you@email.com" required autocomplete="email">
           <button class="btn-primary" type="submit">Lock my $24.99/yr →</button>
         </div>
-        <input type="hidden" name="fields[utm_source]" id="utm-field" value="direct">
-        <input type="hidden" name="fields[referer]" id="referer-field" value="">
+        <input type="hidden" name="utm_source" id="utm-field" value="">
+        <input type="hidden" name="utm_medium" id="utm-medium-field" value="">
+        <input type="hidden" name="utm_campaign" id="utm-campaign-field" value="">
+        <input type="hidden" name="utm_term" id="utm-term-field" value="">
+        <input type="hidden" name="utm_content" id="utm-content-field" value="">
+        <input type="hidden" name="referrer" id="referer-field" value="">
         <p class="incentive">
           <strong>First 100 sign-ups: $24.99/yr LIFETIME price lock.</strong><br>
           Regular price $39.99/yr. Yours locked forever as long as your subscription stays active.
@@ -654,13 +659,20 @@ footer a:hover { color: var(--text); }
 </footer>
 
 <script>
-// Capture UTM source from query string
+// Capture all UTM params + referrer from URL into hidden form fields
 (function() {
   var params = new URLSearchParams(window.location.search);
-  var src = params.get('utm_source');
-  if (src) {
-    document.getElementById('utm-field').value = src;
-  }
+  var pairs = [
+    ['utm_source', 'utm-field'],
+    ['utm_medium', 'utm-medium-field'],
+    ['utm_campaign', 'utm-campaign-field'],
+    ['utm_term', 'utm-term-field'],
+    ['utm_content', 'utm-content-field']
+  ];
+  pairs.forEach(function(p) {
+    var v = params.get(p[0]);
+    if (v) document.getElementById(p[1]).value = v;
+  });
   document.getElementById('referer-field').value = document.referrer || '';
 })();
 
