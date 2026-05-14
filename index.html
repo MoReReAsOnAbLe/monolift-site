@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monolift — Workout tracking that feels like a game</title>
+<meta name="description" content="Drag-to-dial workout logging, AI coach, monkey buddy. Workouts, meals, weight, water — one app.">
+<meta property="og:title" content="Monolift">
+<meta property="og:description" content="Workout tracking that feels like a game">
+<meta property="og:image" content="https://monolift.app/og-image.png">
+<meta property="og:url" content="https://monolift.app">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png">
+<style>
+:root {
+  --accent: #FF6B35;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --bg: #ffffff;
+  --card: #f9fafb;
+  --border: rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #f4f4f5;
+    --muted: #a1a1aa;
+    --bg: #0a0a0a;
+    --card: #18181b;
+    --border: rgba(255,255,255,0.08);
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+header { padding: 24px 0; }
+.logo { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+.logo span { color: var(--accent); }
+
+.hero { padding: 64px 0 48px; text-align: center; }
+.hero h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+.hero h1 em { color: var(--accent); font-style: normal; }
+.hero p.tagline {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--muted);
+  max-width: 580px;
+  margin: 0 auto 32px;
+}
+.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--accent);
+  color: white !important;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 16px;
+  display: inline-block;
+  transition: transform 0.1s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-secondary {
+  background: var(--card);
+  color: var(--text);
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.hero-img { margin: 48px auto 0; max-width: 320px; }
+.hero-img img { width: 100%; height: auto; border-radius: 32px; box-shadow: 0 30px 80px rgba(0,0,0,0.15); }
+
+.features { padding: 80px 0; }
+.features h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  text-align: center;
+  letter-spacing: -0.02em;
+  margin-bottom: 48px;
+  font-weight: 800;
+}
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.feature {
+  background: var(--card);
+  padding: 32px 24px;
+  border-radius: 16px;
+}
+.feature .icon { font-size: 32px; margin-bottom: 12px; }
+.feature h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.feature p { color: var(--muted); font-size: 15px; }
+
+.screenshots-section { padding: 80px 0; }
+.screenshots-section h2 { font-size: clamp(28px, 4vw, 42px); text-align: center; letter-spacing: -0.02em; margin-bottom: 48px; font-weight: 800; }
+.shot-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+.shot img { width: 100%; height: auto; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+.shot p { text-align: center; margin-top: 12px; color: var(--muted); font-size: 14px; }
+
+.email-capture { padding: 80px 0; text-align: center; }
+.email-capture h2 { font-size: clamp(24px, 3.5vw, 36px); letter-spacing: -0.02em; margin-bottom: 16px; font-weight: 800; }
+.email-capture p { color: var(--muted); margin-bottom: 24px; }
+.email-form { display: flex; max-width: 440px; margin: 0 auto; gap: 8px; flex-wrap: wrap; }
+.email-form input {
+  flex: 1;
+  min-width: 200px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 16px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+footer { padding: 48px 0; text-align: center; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); }
+footer a { color: var(--muted); text-decoration: none; margin: 0 12px; }
+footer a:hover { color: var(--text); }
+footer .logo-foot { margin-bottom: 16px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+footer .logo-foot span { color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="logo">Mono<span>lift</span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>Workout tracking<br>that feels like<br><em>a game.</em></h1>
+    <p class="tagline">Drag-to-dial logging. AI coach. Monkey buddy. Workouts, meals, weight, water — one app.</p>
+    <div class="cta-row">
+      <a class="btn-primary" href="#waitlist">Join the waitlist</a>
+      <a class="btn-secondary" href="#features">Learn more</a>
+    </div>
+    <div class="hero-img">
+      <img src="screenshots/hero.png" alt="Monolift app on iPhone" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="container">
+    <h2>Built for lifters who actually lift</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="icon">🎯</div>
+        <h3>2-second logging</h3>
+        <p>Drag-to-dial sets. No keyboards. No menus. Done in seconds.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🧠</div>
+        <h3>AI coach in your pocket</h3>
+        <p>Ask anything. Get plans, swaps, form tips. Learns your training.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🐒</div>
+        <h3>Monkey buddy</h3>
+        <p>Streak guard. Mood reactions. Skip a day, it pouts. Hit it, it celebrates.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📊</div>
+        <h3>One app, four trackers</h3>
+        <p>Workouts. Meals. Weight. Water. No tab-switching across five apps.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📸</div>
+        <h3>AI food scan</h3>
+        <p>Snap a meal photo. Auto-fills macros. Beats typing in food databases.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🔒</div>
+        <h3>Yours, always</h3>
+        <p>Local-first. Sync optional. Export anytime. Cancel anytime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screenshots-section">
+  <div class="container">
+    <h2>See it in action</h2>
+    <div class="shot-row">
+      <div class="shot"><img src="screenshots/logging.png" alt="Drag-to-dial logging" loading="lazy"><p>Drag-to-dial logging</p></div>
+      <div class="shot"><img src="screenshots/coach.png" alt="AI coach" loading="lazy"><p>AI coach in your pocket</p></div>
+      <div class="shot"><img src="screenshots/monkey.png" alt="Monkey buddy" loading="lazy"><p>Monkey buddy</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="email-capture" id="waitlist">
+  <div class="container">
+    <h2>Be first when we launch</h2>
+    <p>One email. No spam. App Store link the day it goes live.</p>
+    <form class="email-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="email" name="email" placeholder="your@email.com" required>
+      <button class="btn-primary" type="submit">Notify me</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="logo-foot">Mono<span>lift</span></div>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/support.html">Support</a>
+    <a href="mailto:hello@monolift.app">Contact</a>
+    <p style="margin-top: 16px;">© 2026 Monolift. Made for lifters.</p>
+  </div>
+</footer>
+</body>
+</html>

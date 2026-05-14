@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — Monolift</title>
+<style>
+:root { --text: #1a1a1a; --muted: #6b7280; --bg: #ffffff; --accent: #FF6B35; --card: #f9fafb; --border: rgba(0,0,0,0.08); }
+@media (prefers-color-scheme: dark) { :root { --text: #f4f4f5; --muted: #a1a1aa; --bg: #0a0a0a; --card: #18181b; --border: rgba(255,255,255,0.08); } }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+.container { max-width: 760px; margin: 0 auto; padding: 24px; }
+header { padding: 24px 0; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+.logo { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
+.logo span { color: var(--accent); }
+h1 { font-size: 36px; letter-spacing: -0.02em; margin-bottom: 8px; }
+.subtitle { color: var(--muted); font-size: 16px; margin-bottom: 32px; }
+h2 { font-size: 22px; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.faq { background: var(--card); padding: 20px 24px; border-radius: 12px; margin-bottom: 12px; }
+.faq h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.faq p { color: var(--text); font-size: 15px; }
+a { color: var(--accent); }
+.contact-box { background: var(--card); padding: 24px; border-radius: 12px; margin-top: 32px; text-align: center; }
+.contact-box h2 { margin-top: 0; }
+.btn { display: inline-block; background: var(--accent); color: white !important; padding: 12px 24px; border-radius: 10px; text-decoration: none; font-weight: 600; margin-top: 8px; }
+footer { margin-top: 64px; padding: 24px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; text-align: center; }
+footer a { color: var(--muted); text-decoration: none; margin: 0 12px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a href="/" class="logo">Mono<span>lift</span></a>
+  </div>
+</header>
+
+<main class="container">
+<h1>Support</h1>
+<p class="subtitle">Common questions and answers. Can't find what you need? Email us below.</p>
+
+<h2>Account & Subscription</h2>
+
+<div class="faq">
+  <h3>How do I cancel my subscription?</h3>
+  <p>Subscriptions are managed by Apple. On your iPhone: Settings → [Your Name] → Subscriptions → Monolift → Cancel Subscription. You'll keep Pro features until the period ends.</p>
+</div>
+
+<div class="faq">
+  <h3>How do I restore my purchase on a new device?</h3>
+  <p>Open Monolift → Settings → Restore Purchases. Make sure you're signed in with the same Apple ID you used to buy.</p>
+</div>
+
+<div class="faq">
+  <h3>Can I get a refund?</h3>
+  <p>Refunds are handled by Apple. Visit <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a> within 90 days of purchase. We cannot issue refunds directly.</p>
+</div>
+
+<div class="faq">
+  <h3>How do I delete my account?</h3>
+  <p>Open Monolift → Settings → Account → Delete Account. Your data is permanently deleted within 30 days. Or email <a href="mailto:privacy@monolift.app">privacy@monolift.app</a>.</p>
+</div>
+
+<div class="faq">
+  <h3>How do I export my data?</h3>
+  <p>Email <a href="mailto:privacy@monolift.app">privacy@monolift.app</a> from the account address. We'll send a JSON archive within 30 days.</p>
+</div>
+
+<h2>Using the App</h2>
+
+<div class="faq">
+  <h3>The AI coach says I need Pro. Why?</h3>
+  <p>The AI features (coach chat, food-photo parsing, AI workout suggestions) require an active Monolift Pro subscription. Start a free 7-day trial from Settings → Subscription.</p>
+</div>
+
+<div class="faq">
+  <h3>My data is missing after signing in on a new phone.</h3>
+  <p>Pull-to-refresh on the home tab. If still missing, sign out and back in — this re-syncs from cloud. If still missing, email <a href="mailto:support@monolift.app">support@monolift.app</a>.</p>
+</div>
+
+<div class="faq">
+  <h3>Sync seems stuck.</h3>
+  <p>Monolift is local-first — your data is safe on device even if sync is offline. Check connection, then pull-to-refresh. Sync will catch up automatically.</p>
+</div>
+
+<div class="faq">
+  <h3>I'm getting too many monkey notifications.</h3>
+  <p>Settings → Notifications → adjust frequency or turn off categories you don't want.</p>
+</div>
+
+<div class="faq">
+  <h3>The monkey looks sad — what does that mean?</h3>
+  <p>Your monkey reflects your streak. Skip workouts and it gets sad. Log a workout and it cheers up. It's a gentle nudge, not a judgment.</p>
+</div>
+
+<h2>Privacy & Security</h2>
+
+<div class="faq">
+  <h3>Does Monolift sell my data?</h3>
+  <p>No. We do not sell data to advertisers, brokers, or any third party. See our <a href="/privacy.html">Privacy Policy</a>.</p>
+</div>
+
+<div class="faq">
+  <h3>Does the AI train on my chats?</h3>
+  <p>No. We use the OpenAI API, which does not train on data sent via API per OpenAI's policy.</p>
+</div>
+
+<div class="contact-box">
+  <h2>Still need help?</h2>
+  <p>Email and we'll respond within 2 business days.</p>
+  <a class="btn" href="mailto:support@monolift.app">support@monolift.app</a>
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <a href="/">Home</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/support.html">Support</a>
+  </div>
+</footer>
+</body>
+</html>
