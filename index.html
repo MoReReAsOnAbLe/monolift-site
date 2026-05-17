@@ -247,8 +247,30 @@ header { padding: 20px 0; }
 .shots-cta { text-align: center; margin-top: 48px; }
 
 /* DRAG-TO-DIAL animated overlay (tuned to logging.png pill position) */
-.drag-stage { position: relative; line-height: 0; }
+.drag-stage { position: relative; line-height: 0; container-type: inline-size; }
 .drag-stage img { display: block; }
+/* cover-pill: masks baked "78 lbs", shows live-ticking value */
+.drag-value {
+  position: absolute;
+  left: 3%;
+  top: 49.3%;
+  width: 16.6%;
+  height: 3.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0E1A2B;
+  border: 0.18cqw solid #1FA7BE;
+  border-radius: 1.4cqw;
+  color: #2BC3D6;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2.6cqw;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  pointer-events: none;
+  white-space: nowrap;
+}
 .drag-touch {
   position: absolute;
   left: 13%;
@@ -562,6 +584,7 @@ footer a:hover { color: var(--text); }
       <div class="shot">
         <div class="drag-stage">
           <img src="screenshots/logging.png" alt="Drag-to-dial logging" loading="lazy">
+          <span class="drag-value" id="dragValue" aria-hidden="true">78 lbs</span>
           <span class="drag-touch" aria-hidden="true"></span>
           <span class="drag-hint" aria-hidden="true">drag ↕</span>
         </div>
@@ -776,6 +799,25 @@ document.getElementById('waitlist').addEventListener('submit', function(e) {
     err.style.display = 'block';
   });
 });
+
+// Drag-to-dial: tick the value in sync with the touch-ring loop.
+// Ring cycle = 2600ms; ring is DOWN at 0/100% (low weight) and UP
+// at 50% (high weight). value = 78 + 8 * (-cos(phase*2pi)).
+(function() {
+  var el = document.getElementById('dragValue');
+  if (!el) return;
+  var PERIOD = 2600, BASE = 78, AMP = 8;
+  var reduce = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { el.textContent = BASE + ' lbs'; return; }
+  function tick(t) {
+    var phase = (t % PERIOD) / PERIOD;
+    var v = Math.round(BASE + AMP * (-Math.cos(phase * 2 * Math.PI)));
+    el.textContent = v + ' lbs';
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
 </script>
 
 </body>
