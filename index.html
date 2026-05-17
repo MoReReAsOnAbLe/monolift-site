@@ -246,6 +246,64 @@ header { padding: 20px 0; }
 .shot p { margin-top: 14px; color: var(--text); font-size: 14px; line-height: 1.5; text-align: center; }
 .shots-cta { text-align: center; margin-top: 48px; }
 
+/* DRAG-TO-DIAL animated overlay (tuned to logging.png pill position) */
+.drag-stage { position: relative; line-height: 0; }
+.drag-stage img { display: block; }
+.drag-touch {
+  position: absolute;
+  left: 13%;
+  top: 52%;
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  border-radius: 50%;
+  background: rgba(15,181,198,0.25);
+  border: 2px solid rgba(15,181,198,0.9);
+  box-shadow: 0 0 0 7px rgba(15,181,198,0.10);
+  pointer-events: none;
+  animation: dragMove 2.6s ease-in-out infinite;
+}
+.drag-touch::after {
+  content: "";
+  position: absolute;
+  inset: 17px;
+  border-radius: 50%;
+  background: rgba(15,181,198,0.85);
+}
+.drag-hint {
+  position: absolute;
+  left: 13%;
+  top: 52%;
+  transform: translate(42px, -50%);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: #0FB5C6;
+  background: rgba(0,0,0,0.6);
+  padding: 5px 10px;
+  border-radius: 999px;
+  pointer-events: none;
+  white-space: nowrap;
+  line-height: 1;
+  animation: hintPulse 2.6s ease-in-out infinite;
+}
+@keyframes dragMove {
+  0%, 100% { transform: translateY(28px) scale(0.95); }
+  50%      { transform: translateY(-28px) scale(1); }
+}
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+@media (max-width: 768px) {
+  .drag-touch { width: 42px; height: 42px; margin: -21px 0 0 -21px; }
+  .drag-touch::after { inset: 13px; }
+  .drag-hint { transform: translate(32px, -50%); font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drag-touch, .drag-hint { animation: none; }
+}
+
 /* FEATURES */
 .features { padding: 72px 0; background: var(--surface); }
 .feature-grid {
@@ -502,8 +560,12 @@ footer a:hover { color: var(--text); }
     <p class="section-sub">Three screens that tell you everything.</p>
     <div class="shot-row">
       <div class="shot">
-        <img src="screenshots/logging.png" alt="Drag-to-dial logging" loading="lazy">
-        <p>Drag to dial weight + reps. No keyboard, no number pad.</p>
+        <div class="drag-stage">
+          <img src="screenshots/logging.png" alt="Drag-to-dial logging" loading="lazy">
+          <span class="drag-touch" aria-hidden="true"></span>
+          <span class="drag-hint" aria-hidden="true">drag ↕</span>
+        </div>
+        <p>Drag the value up or down to dial weight + reps. No keyboard, no number pad.</p>
       </div>
       <div class="shot">
         <img src="screenshots/monkey.png" alt="Monkey reactions" loading="lazy">
