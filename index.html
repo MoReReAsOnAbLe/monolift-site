@@ -3,16 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monolift — Log a set in 5 seconds. Monkey buddy keeps you in the gym.</title>
-<meta name="description" content="The AI workout coach + monkey gym buddy in your pocket. Drag-to-dial logging, AI coach, monkey reactions. Launching soon.">
-<meta property="og:title" content="Monolift — Log a set in 5 seconds.">
-<meta property="og:description" content="The AI workout coach + monkey gym buddy in your pocket. Launching soon.">
+<title>Monolift — Log a set in 2 seconds. No keyboard.</title>
+<meta name="description" content="The fast lifting log for people who gave up on bloated gym apps. Type your workout like a note, then hold a number and slide. ~2 seconds a set. Now on the App Store.">
+<meta property="og:title" content="Monolift — Log a set in 2 seconds. No keyboard.">
+<meta property="og:description" content="Type your workout like a note, then just hold a number and slide. The lifting log for people who went back to their Notes app. Now on the App Store.">
 <meta property="og:image" content="https://monolift.app/og-image.png">
 <meta property="og:url" content="https://monolift.app">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="referrer" content="no-referrer-when-downgrade">
 <link rel="icon" href="/favicon.png">
-<script src="https://f.convertkit.com/ckjs/ck.5.js" async></script>
+
+<!-- OPTIONAL privacy-light analytics (free, no cookie banner). Pick ONE, fill the token, uncomment.
+     Plausible auto-tracks the App Store click as an outbound link → gives you button CTR:
+       <script defer data-domain="monolift.app" src="https://plausible.io/js/script.outbound-links.js"></script>
+     Cloudflare Web Analytics:
+       <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"YOUR_TOKEN"}'></script>
+-->
+
 <style>
 :root {
   /* Light mode — warm cream like the app */
@@ -55,7 +62,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Serif headings — matches app */
 h1, h2, h3, .serif {
   font-family: var(--font-serif);
   font-weight: 800;
@@ -64,399 +70,107 @@ h1, h2, h3, .serif {
 
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-/* HEADER */
-header { padding: 20px 0; }
-.logo {
-  font-family: var(--font-serif);
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  text-decoration: none;
-  color: var(--text);
-}
-.logo span { color: var(--accent); }
-
-/* BUTTONS */
-.btn-primary, button.btn-primary {
-  background: var(--accent);
-  color: white !important;
-  padding: 16px 28px;
-  border-radius: 12px;
-  font-weight: 700;
-  text-decoration: none;
-  font-size: 16px;
-  display: inline-block;
-  transition: transform 0.1s, background 0.15s;
-  border: none;
-  cursor: pointer;
-  min-height: 44px;
-  font-family: var(--font-sans);
-}
-.btn-primary:hover, button.btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
-.btn-secondary {
-  background: var(--surface);
-  color: var(--text);
-  padding: 14px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 15px;
-  display: inline-block;
-  border: 1px solid var(--border);
-  min-height: 44px;
-}
-
-/* HERO */
-.hero { padding: 32px 0 64px; }
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 48px;
+/* APP STORE BADGE — logo left, big "Continue for free", small "iPhone · no ads" */
+.appstore-badge {
+  display: inline-flex;
   align-items: center;
-}
-@media (max-width: 768px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 32px; text-align: left; }
-}
-.hero h1 {
-  font-size: clamp(38px, 6vw, 64px);
-  line-height: 1.02;
-  margin-bottom: 18px;
-}
-.hero h1 em { color: var(--accent); font-style: normal; }
-.hero .subhead {
-  font-size: clamp(16px, 2vw, 20px);
-  color: var(--muted);
-  margin-bottom: 28px;
-  max-width: 520px;
+  gap: 12px;
+  background: #000;
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 14px;
+  text-decoration: none;
+  min-height: 44px;
+  transition: transform 0.1s, opacity 0.15s;
   font-family: var(--font-sans);
 }
+.appstore-badge:hover { transform: translateY(-1px); opacity: 0.92; }
+.appstore-badge .apple-logo { width: 26px; height: 30px; fill: #fff; flex: 0 0 auto; }
+.appstore-badge .ab-text { display: flex; flex-direction: column; line-height: 1.04; text-align: left; }
+.appstore-badge .ab-text strong { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+.appstore-badge .ab-text small { font-size: 11px; opacity: 0.9; }
+/* full-width variant (hero) */
+.appstore-badge.full { display: flex; width: 100%; justify-content: center; padding: 18px 24px; }
+.appstore-badge.full .ab-text strong { font-size: 24px; }
+.appstore-badge.full .apple-logo { width: 30px; height: 34px; }
+.appstore-badge.on-accent { background: #fff; color: #000; }
+.appstore-badge.on-accent .apple-logo { fill: #000; }
+@media (prefers-color-scheme: dark) {
+  .appstore-badge { background: #fff; color: #000; }
+  .appstore-badge .apple-logo { fill: #000; }
+}
+
+/* HERO — centered, pulled to the top */
+.hero { padding: 32px 0 18px; }
+.hero-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+.hero h1 { font-size: clamp(40px, 6.6vw, 68px); line-height: 1.02; margin-bottom: 18px; }
+.hero h1 em { color: var(--accent); font-style: normal; }
+.hero .subhead { font-size: clamp(16px, 2vw, 20px); color: var(--muted); margin: 0 auto 28px; max-width: 560px; font-family: var(--font-sans); }
 .hero .subhead strong { color: var(--text); font-weight: 600; }
 
-/* HERO MONKEY */
-.hero-monkey {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* CAROUSEL — one slide at a time, dots, swipe, auto-advance */
+.carousel-section { padding: 6px 0 52px; }
+.carousel-section .section-sub { text-align: center; color: var(--text); font-size: 16px; margin-bottom: 18px; font-family: var(--font-serif); font-weight: 800; letter-spacing: -0.01em; }
+.section-sub { text-align: center; color: var(--muted); font-size: 16px; margin-bottom: 36px; font-family: var(--font-sans); }
+.carousel { position: relative; max-width: 440px; margin: 0 auto; touch-action: pan-y; }
+.car-viewport { overflow: hidden; }
+.car-track { display: flex; transition: transform 0.5s cubic-bezier(.4,0,.2,1); }
+.car-slide { flex: 0 0 100%; display: flex; justify-content: center; align-items: center; }
+.car-slide img, .car-slide video {
+  height: clamp(460px, 82vh, 760px); width: auto; max-width: 100%;
+  border-radius: 30px; box-shadow: var(--shadow); display: block; object-fit: contain;
 }
-.hero-monkey img {
-  max-width: 360px;
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 18px 28px rgba(0,0,0,0.15));
+.car-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  font-size: 22px; line-height: 1; cursor: pointer; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
-@media (prefers-color-scheme: dark) {
-  .hero-monkey img { filter: drop-shadow(0 18px 28px rgba(0,0,0,0.5)); }
-}
-
-/* HERO FORM */
-.waitlist-form {
-  background: var(--surface);
-  padding: 22px;
-  border-radius: 18px;
-  border: 1px solid var(--border);
-  max-width: 480px;
-  box-shadow: var(--shadow);
-}
-.waitlist-form .row {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.waitlist-form input[type="email"] {
-  flex: 1;
-  min-width: 220px;
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  font-size: 16px;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-sans);
-  min-height: 44px;
-}
-.waitlist-form input[type="email"]:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
-}
-.waitlist-form .incentive {
-  margin-top: 14px;
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-.waitlist-form .incentive strong { color: var(--gold); font-weight: 700; }
-.waitlist-form .success {
-  display: none;
-  padding: 24px 20px;
-  text-align: center;
-}
-.waitlist-form .success img {
-  width: 110px; height: auto;
-  display: block;
-  margin: 0 auto 12px;
-}
-.waitlist-form .success p {
-  color: var(--text);
-  font-weight: 600;
-  line-height: 1.5;
-}
-.waitlist-form .success p small {
-  display: block;
-  font-weight: 400;
-  color: var(--muted);
-  margin-top: 6px;
-  font-size: 13px;
-}
-.waitlist-form.submitted .row,
-.waitlist-form.submitted .incentive { display: none; }
-.waitlist-form.submitted .success { display: block; }
-.waitlist-form .err {
-  display: none;
-  margin-top: 8px;
-  color: var(--red);
-  font-size: 13px;
-}
-
-/* SCREENSHOTS GRID SECTION */
-.shots { padding: 72px 0; }
-.shots h2,
-.features h2,
-.pricing h2,
-.faq h2 {
-  font-size: clamp(30px, 4.5vw, 44px);
-  text-align: center;
-  margin-bottom: 8px;
-}
-.section-sub {
-  text-align: center;
-  color: var(--muted);
-  font-size: 16px;
-  margin-bottom: 48px;
-  font-family: var(--font-sans);
-}
-.shot-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-@media (max-width: 1000px) {
-  .shot-row { grid-template-columns: repeat(2, 1fr); gap: 28px; }
-}
+.car-arrow.prev { left: -10px; }
+.car-arrow.next { right: -10px; }
+.car-arrow:hover { background: var(--bg); }
+.car-dots { display: flex; gap: 9px; justify-content: center; margin-top: 22px; }
+.car-dots button { width: 9px; height: 9px; border-radius: 50%; border: none; padding: 0; background: var(--muted); opacity: 0.3; cursor: pointer; transition: all 0.2s; }
+.car-dots button.active { opacity: 1; background: var(--accent); width: 26px; border-radius: 5px; }
+.carousel-cta { text-align: center; margin-top: 40px; }
 @media (max-width: 560px) {
-  .shot-row { grid-template-columns: 1fr; gap: 32px; }
+  .car-arrow { display: none; }   /* rely on swipe */
+  .car-slide img, .car-slide video { height: clamp(420px, 80vh, 680px); }
 }
-.shot img { width: 100%; height: auto; border-radius: 28px; box-shadow: var(--shadow); }
-.shot video {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 28px;
-  box-shadow: var(--shadow);
-}
-.shot p { margin-top: 14px; color: var(--text); font-size: 14px; line-height: 1.5; text-align: center; }
-.shots-cta { text-align: center; margin-top: 48px; }
+@media (prefers-reduced-motion: reduce) { .car-track { transition: none; } }
 
 /* FEATURES */
-.features { padding: 72px 0; background: var(--surface); }
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
-}
-@media (max-width: 768px) {
-  .feature-grid { grid-template-columns: 1fr; }
-}
-.feature {
-  padding: 28px;
-  background: var(--bg);
-  border-radius: 18px;
-  border: 1px solid var(--border);
-}
+.features { padding: 64px 0; background: var(--surface); }
+.features h2, .faq h2 { font-size: clamp(30px, 4.5vw, 44px); text-align: center; margin-bottom: 8px; }
+.feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+@media (max-width: 768px) { .feature-grid { grid-template-columns: 1fr; } }
+.feature { padding: 28px; background: var(--bg); border-radius: 18px; border: 1px solid var(--border); }
 .feature .icon { font-size: 32px; margin-bottom: 12px; }
-.feature h3 {
-  font-size: 20px;
-  font-weight: 800;
-  margin-bottom: 8px;
-  font-family: var(--font-serif);
-}
+.feature h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; font-family: var(--font-serif); }
 .feature p { color: var(--muted); font-size: 15px; line-height: 1.55; }
-
-/* PRICING */
-.pricing { padding: 72px 0; }
-.price-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  align-items: stretch;
-}
-@media (max-width: 768px) {
-  .price-grid { grid-template-columns: 1fr; }
-}
-.price-card {
-  background: var(--surface);
-  padding: 28px 24px;
-  border-radius: 18px;
-  border: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-.price-card.featured {
-  border: 2px solid var(--gold);
-  background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
-  transform: scale(1.03);
-}
-@media (max-width: 768px) {
-  .price-card.featured { transform: none; }
-}
-.price-card .tier {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 12px;
-  font-family: var(--font-sans);
-}
-.price-card.featured .tier { color: var(--gold); }
-.badge {
-  position: absolute;
-  top: -12px;
-  right: 16px;
-  background: var(--gold);
-  color: white;
-  padding: 5px 12px;
-  border-radius: 100px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  font-family: var(--font-sans);
-}
-.price-card .price {
-  font-size: 40px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: 4px;
-  font-family: var(--font-serif);
-}
-.price-card .per { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
-.price-card ul { list-style: none; margin-bottom: 20px; flex: 1; }
-.price-card li { padding: 6px 0; font-size: 15px; }
-.price-card li::before { content: "✓ "; color: var(--accent); font-weight: 800; }
-.price-card.featured li::before { color: var(--gold); }
-.price-card .price-cta {
-  background: transparent;
-  color: var(--text);
-  padding: 12px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 14px;
-  border: 1px solid var(--border);
-  text-decoration: none;
-  font-family: var(--font-sans);
-}
-.price-card.featured .price-cta {
-  background: var(--accent);
-  color: white;
-  border: none;
-  font-weight: 700;
-  cursor: pointer;
-}
-.pricing .small-print {
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 28px;
-}
+.feature code { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; font-size: 13px; }
 
 /* FAQ */
-.faq { padding: 72px 0; background: var(--surface); }
+.faq { padding: 64px 0; background: var(--surface); }
 .faq-list { max-width: 720px; margin: 0 auto; }
-.faq details {
-  background: var(--bg);
-  padding: 20px 22px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  margin-bottom: 12px;
-}
-.faq summary {
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  list-style: none;
-  position: relative;
-  padding-right: 28px;
-  font-family: var(--font-serif);
-  letter-spacing: -0.01em;
-}
+.faq details { background: var(--bg); padding: 20px 22px; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 12px; }
+.faq summary { font-weight: 700; font-size: 16px; cursor: pointer; list-style: none; position: relative; padding-right: 28px; font-family: var(--font-serif); letter-spacing: -0.01em; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after {
-  content: "+";
-  position: absolute;
-  right: 0;
-  top: -4px;
-  font-size: 26px;
-  color: var(--accent);
-  transition: transform 0.15s;
-  font-weight: 400;
-}
+.faq summary::after { content: "+"; position: absolute; right: 0; top: -4px; font-size: 26px; color: var(--accent); transition: transform 0.15s; font-weight: 400; }
 .faq details[open] summary::after { content: "−"; }
-.faq details p {
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.6;
-  font-family: var(--font-sans);
-}
+.faq details p { margin-top: 12px; color: var(--muted); font-size: 15px; line-height: 1.6; font-family: var(--font-sans); }
 
 /* FINAL CTA */
-.final-cta {
-  background: var(--accent);
-  color: white;
-  padding: 72px 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.final-cta .cta-monkey {
-  max-width: 180px;
-  width: 32vw;
-  height: auto;
-  margin-bottom: 12px;
-  display: inline-block;
-  filter: drop-shadow(0 18px 24px rgba(0,0,0,0.25));
-}
-.final-cta h2 {
-  font-size: clamp(32px, 4.5vw, 48px);
-  margin-bottom: 12px;
-  color: white;
-}
+.final-cta { background: var(--accent); color: white; padding: 64px 0; text-align: center; position: relative; overflow: hidden; }
+.final-cta .cta-monkey { max-width: 160px; width: 30vw; height: auto; margin-bottom: 12px; display: inline-block; filter: drop-shadow(0 18px 24px rgba(0,0,0,0.25)); }
+.final-cta h2 { font-size: clamp(32px, 4.5vw, 48px); margin-bottom: 12px; color: white; }
 .final-cta p { font-size: 17px; opacity: 0.95; margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; }
-.final-cta .btn-on-accent {
-  background: white;
-  color: var(--accent) !important;
-  padding: 18px 32px;
-  border-radius: 14px;
-  font-weight: 800;
-  font-size: 17px;
-  display: inline-block;
-  text-decoration: none;
-  min-height: 44px;
-  font-family: var(--font-sans);
-}
 
 /* FOOTER */
 footer { padding: 36px 0; text-align: center; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); }
-footer .logo-foot {
-  margin-bottom: 12px;
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  display: inline-block;
-  text-decoration: none;
-  font-family: var(--font-serif);
-}
+footer .logo-foot { margin-bottom: 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); display: inline-block; text-decoration: none; font-family: var(--font-serif); }
 footer .logo-foot span { color: var(--accent); }
 footer a { color: var(--muted); text-decoration: none; margin: 0 10px; }
 footer a:hover { color: var(--text); }
@@ -464,167 +178,75 @@ footer a:hover { color: var(--text); }
 </head>
 <body>
 
-<header>
-  <div class="container">
-    <a href="/" class="logo">Mono<span>lift</span></a>
-  </div>
-</header>
-
 <!-- HERO -->
 <section class="hero">
-  <div class="container hero-grid">
-    <div>
-      <h1>Log a set in 5 seconds.<br><em>Your monkey buddy</em><br>never lets you skip leg day.</h1>
-      <p class="subhead">Monolift is the AI workout coach + gym buddy in your pocket. <strong>Launching soon.</strong></p>
-
-      <form id="waitlist" class="waitlist-form" action="https://app.kit.com/forms/9443564/subscriptions" method="POST">
-        <div class="row">
-          <input type="email" name="email_address" placeholder="you@email.com" required autocomplete="email">
-          <button class="btn-primary" type="submit">Get my first year for $19.99 →</button>
-        </div>
-        <input type="hidden" name="utm_source" id="utm-field" value="">
-        <input type="hidden" name="utm_medium" id="utm-medium-field" value="">
-        <input type="hidden" name="utm_campaign" id="utm-campaign-field" value="">
-        <input type="hidden" name="utm_term" id="utm-term-field" value="">
-        <input type="hidden" name="utm_content" id="utm-content-field" value="">
-        <input type="hidden" name="referrer" id="referer-field" value="">
-        <p class="incentive">
-          <strong>First 100 sign-ups get a founder code: $19.99 your first year (save $20).</strong><br>
-          Redeem in the App Store at launch. Renews at $39.99/yr after year 1. Cancel anytime.
-        </p>
-        <p class="err" id="form-err">Something went wrong. Email <a href="mailto:hello@monolift.app">hello@monolift.app</a> and we'll add you manually.</p>
-        <div class="success">
-          <img src="screenshots/success-monkey.png" alt="Thumbs up monkey">
-          <p>You're on the Monolift waitlist.<small>Check your inbox for confirmation. App Store link drops the moment it's live.</small></p>
-        </div>
-      </form>
-    </div>
-    <div class="hero-monkey">
-      <img src="screenshots/hero-monkey.png" alt="Determined monkey" loading="eager">
-    </div>
+  <div class="container hero-inner">
+    <h1>Log a set in <em>2 seconds</em>.<br>No keyboard.</h1>
+    <p class="subhead">The lifting app for people who gave up on bloated gym apps and went back to their <strong>Notes app</strong>. Type your workout like a note — then just hold a number and slide.</p>
+    <a class="appstore-badge full" data-appstore data-ct="web_hero" aria-label="Continue for free on the App Store">
+      <svg class="apple-logo" viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span class="ab-text"><strong>Continue for free</strong><small>App Store · iPhone · no ads</small></span>
+    </a>
   </div>
 </section>
 
-<!-- SCREENSHOTS -->
-<section class="shots">
+<!-- CAROUSEL -->
+<section class="carousel-section">
   <div class="container">
-    <h2>A peek inside</h2>
-    <p class="section-sub">Just a glimpse — there's a lot more in the app.</p>
-    <div class="shot-row">
-      <div class="shot">
-        <video src="screenshots/logging.mp4" poster="screenshots/logging.png"
-               autoplay muted loop playsinline preload="metadata"
-               aria-label="Drag-to-dial logging demo"></video>
-        <p>Drag the value up or down to dial weight + reps. No keyboard, no number pad.</p>
-      </div>
-      <div class="shot">
-        <img src="screenshots/monkey.png" alt="Monkey buddy companion" loading="lazy">
-        <p>Monkey buddy roasts you, hypes you, keeps you in the gym.</p>
-      </div>
-      <div class="shot">
-        <img src="screenshots/coach.png" alt="AI coach answering a training question" loading="lazy">
-        <p>Ask the coach anything — get a real answer, instantly.</p>
-      </div>
-      <div class="shot">
-        <img src="screenshots/monkeyworkout.png" alt="AI coach building a workout" loading="lazy">
-        <p>Tell it your goal. The coach builds the workout for you.</p>
-      </div>
-      <div class="shot">
-        <img src="screenshots/nutrition.png" alt="Nutrition dashboard" loading="lazy">
-        <p>Calories, macros, weekly trends — your nutrition at a glance.</p>
-      </div>
-      <div class="shot">
-        <img src="screenshots/ai-describe-food.png" alt="AI food parsing" loading="lazy">
-        <p>Just describe what you ate. AI logs the macros for you.</p>
-      </div>
-      <div class="shot">
-        <img src="screenshots/ai-photo-food.jpg" alt="AI photo food recognition" loading="lazy">
-        <p>Snap your plate. AI reads the food and fills the numbers.</p>
-      </div>
-      <div class="shot">
-        <img src="screenshots/tracking.png" alt="Water, cardio and body weight tracking" loading="lazy">
-        <p>Water, cardio, body weight — all tracked in one place.</p>
+    <p class="section-sub">Lifts · food · weight · cardio — fast.</p>
+  </div>
+  <div class="carousel" aria-roledescription="carousel" aria-label="App screenshots">
+    <button class="car-arrow prev" type="button" aria-label="Previous">‹</button>
+    <div class="car-viewport">
+      <div class="car-track">
+        <div class="car-slide"><video src="screenshots/logging.mp4" poster="screenshots/logging.png" muted playsinline preload="auto" aria-label="Drag-to-dial logging demo"></video></div>
+        <div class="car-slide"><img src="screenshots/ai-photo-food.jpg" alt="Snap a photo of food to estimate macros" loading="lazy"></div>
+        <div class="car-slide"><img src="screenshots/ai-describe-food.png" alt="Describe a meal to log it" loading="lazy"></div>
+        <div class="car-slide"><img src="screenshots/coach.png" alt="AI coach answering a training question" loading="lazy"></div>
+        <div class="car-slide"><img src="screenshots/monkeyworkout.png" alt="AI coach building a workout" loading="lazy"></div>
+        <div class="car-slide"><img src="screenshots/nutrition.png" alt="Nutrition dashboard" loading="lazy"></div>
+        <div class="car-slide"><img src="screenshots/tracking.png" alt="Water, cardio and body weight tracking" loading="lazy"></div>
+        <div class="car-slide"><img src="screenshots/monkey.png" alt="Banaño the gym-buddy monkey" loading="lazy"></div>
       </div>
     </div>
-    <div class="shots-cta">
-      <a class="btn-primary" href="#waitlist">Get my first year for $19.99 →</a>
-    </div>
+    <button class="car-arrow next" type="button" aria-label="Next">›</button>
+    <div class="car-dots" role="tablist" aria-label="Choose slide"></div>
+  </div>
+  <div class="container carousel-cta">
+    <a class="appstore-badge" data-appstore data-ct="web_gallery" aria-label="Continue for free on the App Store">
+      <svg class="apple-logo" viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span class="ab-text"><strong>Continue for free</strong><small>App Store · iPhone · no ads</small></span>
+    </a>
   </div>
 </section>
 
 <!-- FEATURES -->
 <section class="features">
   <div class="container">
-    <h2>One app. Workouts, food, weight, monkey.</h2>
+    <h2>As fast as Notes — but made for lifting.</h2>
     <p class="section-sub">Built for lifters who actually lift.</p>
     <div class="feature-grid">
       <div class="feature">
-        <div class="icon">⚡</div>
-        <h3>Drag-to-dial logging</h3>
-        <p>Log a set in 5 seconds. No keyboard, no number pad. Color-code lifts your way.</p>
+        <div class="icon">📝</div>
+        <h3>Type it like a note</h3>
+        <p>Write <code>Bench Press: 135 lbs 8, 8, 6</code> and it becomes a tappable card. It just understands sets and reps.</p>
       </div>
       <div class="feature">
-        <div class="icon">🐒</div>
-        <h3>Monkey buddy</h3>
-        <p>Reacts to every log. Roasts you when you skip. The Duolingo for fitness, for grown-ups.</p>
+        <div class="icon">🎚️</div>
+        <h3>2-second logging</h3>
+        <p>Hold a number and slide to change weight or reps. Plate mode steps through real plate jumps. No keyboard, no number pad.</p>
       </div>
       <div class="feature">
         <div class="icon">🤖</div>
-        <h3>AI coach</h3>
-        <p>Conversational accountability 24/7. Flags plateaus. Suggests deloads. Chat anytime.</p>
+        <h3>An AI coach that knows your numbers</h3>
+        <p>It reads your real history, flags plateaus, and writes your next session — you approve it before it's added to your log.</p>
       </div>
       <div class="feature">
         <div class="icon">📊</div>
-        <h3>Macros + weight + photos</h3>
-        <p>Barcode-scan food. Track water + body weight. Log progress photos.</p>
+        <h3>One app, not five</h3>
+        <p>Lifts, food (snap a photo or just describe it), water, cardio, body weight, progress photos — all in one place.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing">
-  <div class="container">
-    <h2>Simple pricing. 7-day free trial.</h2>
-    <p class="section-sub">All features unlocked on every plan.</p>
-    <div class="price-grid">
-      <div class="price-card">
-        <div class="tier">Monthly</div>
-        <div class="price">$9.99</div>
-        <div class="per">per month</div>
-        <ul>
-          <li>7-day free trial</li>
-          <li>All features unlocked</li>
-        </ul>
-        <div class="price-cta">Available at launch</div>
-      </div>
-
-      <div class="price-card featured">
-        <span class="badge">LIMITED — 100 SPOTS</span>
-        <div class="tier">Founder Year</div>
-        <div class="price">$19.99</div>
-        <div class="per">first year via founder code, then $39.99/yr</div>
-        <ul>
-          <li>All features unlocked</li>
-          <li>Founder code emailed to first 100 sign-ups</li>
-          <li>Renews at $39.99/yr · cancel anytime</li>
-        </ul>
-        <a href="#waitlist" class="price-cta">Claim my $19.99 →</a>
-      </div>
-
-      <div class="price-card">
-        <div class="tier">Annual</div>
-        <div class="price">$39.99</div>
-        <div class="per">/ year ($3.33/mo)</div>
-        <ul>
-          <li>7-day free trial</li>
-          <li>All features unlocked</li>
-          <li>Best regular value</li>
-        </ul>
-        <div class="price-cta">Available at launch</div>
-      </div>
-    </div>
-    <p class="small-print">Cancel anytime. No hidden fees.</p>
   </div>
 </section>
 
@@ -632,35 +254,23 @@ footer a:hover { color: var(--text); }
 <section class="faq">
   <div class="container">
     <h2>Common questions</h2>
-    <p class="section-sub">Everything you'd want to know before joining.</p>
+    <p class="section-sub">Everything you'd want to know before downloading.</p>
     <div class="faq-list">
       <details>
-        <summary>How does the $19.99 founder deal work?</summary>
-        <p>The first 100 people on the waitlist get a personal founder code by email at launch. Open the App Store, tap "Redeem Code", enter it, and your first year is $19.99 instead of $39.99 — a $20 saving. After year 1 it renews at the regular $39.99/yr. Cancel anytime through the App Store, no penalties. Codes are limited to the first 100 sign-ups, one per person.</p>
+        <summary>What makes it different from Hevy, Strong, or just using my Notes app?</summary>
+        <p>Speed. You type a workout like a plain note and it becomes structured sets — then you log by holding a number and sliding, no keyboard. It's as fast as your Notes app, but it actually understands sets, reps and progress. And it's one app for lifts, food, weight, cardio and photos instead of five.</p>
       </details>
       <details>
-        <summary>When does Monolift launch?</summary>
-        <p>Soon — we're in the final stretch before App Store submission. Waitlist members get the App Store link the moment it goes live, plus their founder code.</p>
+        <summary>What platforms does it support?</summary>
+        <p>iPhone (iOS). An Android version may come later depending on demand.</p>
       </details>
       <details>
-        <summary>What's the difference between Monolift and other gym apps?</summary>
-        <p>Three things: drag-to-dial logging (log a set in 5 seconds, no keyboard), a monkey buddy that emotionally reacts to your workouts, and a conversational AI coach that flags plateaus. Most gym apps are spreadsheets in disguise. Monolift makes opening the app something you want to do.</p>
+        <summary>What happens to my data?</summary>
+        <p>Your data syncs to your private account. No ads, and we don't sell your data. Sign in with Apple is supported.</p>
       </details>
       <details>
-        <summary>How does the 7-day free trial work?</summary>
-        <p>You pick a plan and confirm with your Apple ID — no charge during the 7 days. If you cancel before day 7, you're not charged. If you don't cancel, your card is automatically charged on day 7 and your subscription begins. Cancel anytime via your Apple ID → Subscriptions.</p>
-      </details>
-      <details>
-        <summary>What platforms?</summary>
-        <p>iOS first (iPhone + iPad). Android port may come later based on demand.</p>
-      </details>
-      <details>
-        <summary>My data — what happens to it?</summary>
-        <p>Your data syncs to your private cloud account. No ads. No selling data. HealthKit integration is optional. Apple Sign In supported.</p>
-      </details>
-      <details>
-        <summary>Why a monkey?</summary>
-        <p>Because every other gym app is a spreadsheet with a fitness logo. The monkey is your buddy — reacts when you log a PR, roasts you when you ghost the gym, celebrates your streak. It's the difference between an app you use because you "should" and one you actually want to open.</p>
+        <summary>What's with the monkey?</summary>
+        <p>That's Banaño — your gym buddy. He levels up when you log and gets dramatically sad when you ghost the gym. Totally optional, but most people keep him around.</p>
       </details>
     </div>
   </div>
@@ -670,9 +280,12 @@ footer a:hover { color: var(--text); }
 <section class="final-cta">
   <div class="container">
     <img class="cta-monkey" src="screenshots/cta-monkey.png" alt="Trophy monkey">
-    <h2>$19.99 for your first year.</h2>
-    <p>First 100 waitlist sign-ups only. Then it's $39.99/yr regular.</p>
-    <a href="#waitlist" class="btn-on-accent">Join the waitlist →</a>
+    <h2>Stop fighting your gym app.</h2>
+    <p>Type your lift like a note. Hold a number, slide. ~2 seconds a set.</p>
+    <a class="appstore-badge on-accent" data-appstore data-ct="web_final" aria-label="Continue for free on the App Store">
+      <svg class="apple-logo" viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span class="ab-text"><strong>Continue for free</strong><small>App Store · iPhone · no ads</small></span>
+    </a>
   </div>
 </section>
 
@@ -680,7 +293,7 @@ footer a:hover { color: var(--text); }
 <footer>
   <div class="container">
     <a href="/" class="logo-foot">Mono<span>lift</span></a>
-    <div>Coming soon to the App Store</div>
+    <div>Now on the App Store</div>
     <div style="margin-top:10px;">
       <a href="/privacy.html">Privacy</a>·
       <a href="/support.html">Support</a>·
@@ -692,60 +305,99 @@ footer a:hover { color: var(--text); }
 </footer>
 
 <script>
-// Capture all UTM params + referrer from URL into hidden form fields
-(function() {
+// ============================================================================
+//  ⬇️  ONE THING TO EDIT: paste your real App Store URL here (no query string).
+//  Find it in App Store Connect → your app → "View on App Store", e.g.
+//  https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/id1234567890
+// ============================================================================
+var APP_STORE_URL = "https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/id6766133889";
+
+// Wire every [data-appstore] button to the App Store with an attribution tag.
+(function () {
   var params = new URLSearchParams(window.location.search);
-  var pairs = [
-    ['utm_source', 'utm-field'],
-    ['utm_medium', 'utm-medium-field'],
-    ['utm_campaign', 'utm-campaign-field'],
-    ['utm_term', 'utm-term-field'],
-    ['utm_content', 'utm-content-field']
-  ];
-  pairs.forEach(function(p) {
-    var v = params.get(p[0]);
-    if (v) document.getElementById(p[1]).value = v;
+  var src = (params.get('utm_content') || params.get('utm_campaign') || '')
+              .replace(/[^a-z0-9_-]/gi, '').slice(0, 28);
+  document.querySelectorAll('[data-appstore]').forEach(function (a) {
+    var ct = a.getAttribute('data-ct') || 'web';
+    if (src) ct = (ct + '_' + src).slice(0, 40); // Apple caps ct at 40 chars
+    a.href = APP_STORE_URL + (APP_STORE_URL.indexOf('?') > -1 ? '&' : '?')
+             + 'ct=' + encodeURIComponent(ct) + '&mt=8';
   });
-  document.getElementById('referer-field').value = document.referrer || '';
 })();
 
-// AJAX form submit (keeps user on page, shows inline success)
-// Append current page's query string (UTMs) to Kit's endpoint so Kit
-// can read utm_source/medium/campaign from URL params on POST.
-document.getElementById('waitlist').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var form = e.target;
-  var data = new FormData(form);
-  var err = document.getElementById('form-err');
-  err.style.display = 'none';
+// Carousel: one slide at a time. Video plays fully → advance; images wait 3s →
+// advance; loop. Swipe (touch), arrows, and dots all work. Pauses on hover.
+(function () {
+  var car = document.querySelector('.carousel');
+  if (!car) return;
+  var track  = car.querySelector('.car-track');
+  var slides = Array.prototype.slice.call(car.querySelectorAll('.car-slide'));
+  var dotsWrap = car.querySelector('.car-dots');
+  var n = slides.length;
+  var idx = 0, timer = null, paused = false;
+  var IMG_MS = 3000;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (form.action.indexOf('CONVERTKIT_FORM_ACTION_URL') !== -1) {
-    err.textContent = 'Waitlist form not yet wired up. Email hello@monolift.app to be added manually.';
-    err.style.display = 'block';
-    return;
-  }
-
-  // Forward page URL query string to Kit endpoint (UTM passthrough)
-  var actionURL = form.action.split('?')[0];
-  var pageQuery = window.location.search;
-  if (pageQuery && pageQuery.length > 1) {
-    actionURL += pageQuery;
-  }
-
-  fetch(actionURL, {
-    method: 'POST',
-    body: data,
-    headers: { 'Accept': 'application/json' }
-  }).then(function(r) {
-    if (r.ok) {
-      form.classList.add('submitted');
-    } else {
-      err.style.display = 'block';
-    }
-  }).catch(function() {
-    err.style.display = 'block';
+  var dots = slides.map(function (_, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    b.addEventListener('click', function () { go(i); });
+    dotsWrap.appendChild(b);
+    return b;
   });
-});
+
+  function clearTimer() { if (timer) { clearTimeout(timer); timer = null; } if (window._carEnd) { window._carEnd(); window._carEnd = null; } }
+
+  function render() {
+    track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    slides.forEach(function (s, i) {
+      var v = s.querySelector('video');
+      if (v && i !== idx) { try { v.pause(); } catch (e) {} v.onended = null; }
+    });
+  }
+
+  function schedule() {
+    clearTimer();
+    if (paused) return;
+    var vid = slides[idx].querySelector('video');
+    if (vid) {
+      try { vid.currentTime = 0; } catch (e) {}
+      var p = vid.play(); if (p && p.catch) p.catch(function () {});
+      if (reduce) return;                       // play once, don't auto-advance
+      vid.onended = function () { next(); };
+      window._carEnd = function () { vid.onended = null; };
+      var dur = (isFinite(vid.duration) && vid.duration > 0) ? vid.duration * 1000 : 9000;
+      timer = setTimeout(next, dur + 600);      // safety net if 'ended' never fires
+    } else {
+      if (reduce) return;
+      timer = setTimeout(next, IMG_MS);
+    }
+  }
+
+  function go(i)   { clearTimer(); idx = (i % n + n) % n; render(); schedule(); }
+  function next()  { go(idx + 1); }
+  function prev()  { go(idx - 1); }
+
+  var pa = car.querySelector('.car-arrow.prev'); if (pa) pa.addEventListener('click', prev);
+  var na = car.querySelector('.car-arrow.next'); if (na) na.addEventListener('click', next);
+
+  car.addEventListener('mouseenter', function () { paused = true; clearTimer(); });
+  car.addEventListener('mouseleave', function () { paused = false; schedule(); });
+
+  var x0 = null, vp = car.querySelector('.car-viewport');
+  vp.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  vp.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+    x0 = null;
+  }, { passive: true });
+
+  render();
+  schedule();
+})();
 </script>
 
 </body>
