@@ -116,6 +116,7 @@ h1, h2, h3, .serif {
 .car-viewport { overflow: hidden; }
 .car-track { display: flex; transition: transform 0.5s cubic-bezier(.4,0,.2,1); }
 .car-slide { flex: 0 0 100%; display: flex; justify-content: center; align-items: center; }
+.car-slide picture { display: contents; }
 .car-slide img, .car-slide video {
   height: clamp(460px, 82vh, 760px); width: auto; max-width: 100%;
   border-radius: 30px; box-shadow: var(--shadow); display: block; object-fit: contain;
@@ -134,7 +135,8 @@ h1, h2, h3, .serif {
 .car-dots { display: flex; gap: 9px; justify-content: center; margin-top: 22px; }
 .car-dots button { width: 9px; height: 9px; border-radius: 50%; border: none; padding: 0; background: var(--muted); opacity: 0.3; cursor: pointer; transition: all 0.2s; }
 .car-dots button.active { opacity: 1; background: var(--accent); width: 26px; border-radius: 5px; }
-.carousel-cta { text-align: center; margin-top: 40px; }
+.car-caption { text-align: center; font-family: var(--font-serif); font-weight: 800; letter-spacing: -0.01em; color: var(--text); font-size: 15px; line-height: 1.3; margin: 0 auto 16px; max-width: 340px; min-height: 1.3em; }
+.carousel-cta { text-align: center; margin-top: 28px; }
 @media (max-width: 560px) {
   .car-arrow { display: none; }   /* rely on swipe */
   .car-slide img, .car-slide video { height: clamp(420px, 80vh, 680px); }
@@ -182,7 +184,7 @@ footer a:hover { color: var(--text); }
 <section class="hero">
   <div class="container hero-inner">
     <h1>Log a set in <em>2 seconds</em>.<br>No keyboard.</h1>
-    <p class="subhead">The lifting app for people who gave up on bloated gym apps and went back to their <strong>Notes app</strong>. Type your workout like a note — then just hold a number and slide.</p>
+    <p class="subhead">For lifters who ditched bloated apps and went back to their Notes app. <strong>Hold a number, slide, done</strong> — plus food, water, cardio and weight, all in one place.</p>
     <a class="appstore-badge full" data-appstore data-ct="web_hero" aria-label="Continue for free on the App Store">
       <svg class="apple-logo" viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
       <span class="ab-text"><strong>Continue for free</strong><small>App Store · iPhone · no ads</small></span>
@@ -192,21 +194,19 @@ footer a:hover { color: var(--text); }
 
 <!-- CAROUSEL -->
 <section class="carousel-section">
-  <div class="container">
-    <p class="section-sub">Lifts · food · weight · cardio — fast.</p>
-  </div>
+  <p class="car-caption" aria-live="polite"></p>
   <div class="carousel" aria-roledescription="carousel" aria-label="App screenshots">
     <button class="car-arrow prev" type="button" aria-label="Previous">‹</button>
     <div class="car-viewport">
       <div class="car-track">
-        <div class="car-slide"><video src="screenshots/logging.mp4" poster="screenshots/logging.png" muted playsinline preload="auto" aria-label="Drag-to-dial logging demo"></video></div>
-        <div class="car-slide"><img src="screenshots/ai-photo-food.jpg" alt="Snap a photo of food to estimate macros" loading="lazy"></div>
-        <div class="car-slide"><img src="screenshots/ai-describe-food.png" alt="Describe a meal to log it" loading="lazy"></div>
-        <div class="car-slide"><img src="screenshots/coach.png" alt="AI coach answering a training question" loading="lazy"></div>
-        <div class="car-slide"><img src="screenshots/monkeyworkout.png" alt="AI coach building a workout" loading="lazy"></div>
-        <div class="car-slide"><img src="screenshots/nutrition.png" alt="Nutrition dashboard" loading="lazy"></div>
-        <div class="car-slide"><img src="screenshots/tracking.png" alt="Water, cardio and body weight tracking" loading="lazy"></div>
-        <div class="car-slide"><img src="screenshots/monkey.png" alt="Banaño the gym-buddy monkey" loading="lazy"></div>
+        <div class="car-slide"><video class="demo-vid" src="screenshots/demo-log.mp4" poster="screenshots/demo-log.png" data-light="screenshots/demo-log.mp4" data-dark="screenshots/demo-log-dark.mp4" data-poster-light="screenshots/demo-log.png" data-poster-dark="screenshots/demo-log-dark.png" muted playsinline preload="auto" aria-label="Logging a workout and seeing the progress chart"></video></div>
+        <div class="car-slide"><picture><source srcset="screenshots/shot-food-photo-dark.jpg" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-food-photo.jpg" alt="Snap a photo of your meal" loading="lazy"></picture></div>
+        <div class="car-slide"><picture><source srcset="screenshots/shot-food-ai-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-food-ai.png" alt="Describe a meal in text and AI logs it" loading="lazy"></picture></div>
+        <div class="car-slide"><picture><source srcset="screenshots/shot-nutrition-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-nutrition.png" alt="Daily calories and macros dashboard" loading="lazy"></picture></div>
+        <div class="car-slide"><picture><source srcset="screenshots/shot-coach-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-coach.png" alt="AI coach chat that knows your numbers" loading="lazy"></picture></div>
+        <div class="car-slide"><picture><source srcset="screenshots/shot-workout-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-workout.png" alt="AI builds a workout you approve" loading="lazy"></picture></div>
+        <div class="car-slide"><picture><source srcset="screenshots/shot-tracking-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-tracking.png" alt="Water, cardio and body weight tracking" loading="lazy"></picture></div>
+        <div class="car-slide"><picture><source srcset="screenshots/shot-monkey-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-monkey.png" alt="Banaño the gym-buddy monkey and your stats" loading="lazy"></picture></div>
       </div>
     </div>
     <button class="car-arrow next" type="button" aria-label="Next">›</button>
@@ -227,14 +227,14 @@ footer a:hover { color: var(--text); }
     <p class="section-sub">Built for lifters who actually lift.</p>
     <div class="feature-grid">
       <div class="feature">
-        <div class="icon">📝</div>
-        <h3>Type it like a note</h3>
-        <p>Write <code>Bench Press: 135 lbs 8, 8, 6</code> and it becomes a tappable card. It just understands sets and reps.</p>
+        <div class="icon">🎚️</div>
+        <h3>Drag-and-dial logging</h3>
+        <p>Hold a number and slide to set weight or reps — a full set in about two seconds. No keyboard, no number pad. It's the part no other app has.</p>
       </div>
       <div class="feature">
-        <div class="icon">🎚️</div>
-        <h3>2-second logging</h3>
-        <p>Hold a number and slide to change weight or reps. Plate mode steps through real plate jumps. No keyboard, no number pad.</p>
+        <div class="icon">🏆</div>
+        <h3>Automatic PRs &amp; progress</h3>
+        <p>Every set you log becomes a chart. Monolift tracks your personal records and progress over time automatically — so you can actually see the overload.</p>
       </div>
       <div class="feature">
         <div class="icon">🤖</div>
@@ -258,7 +258,7 @@ footer a:hover { color: var(--text); }
     <div class="faq-list">
       <details>
         <summary>What makes it different from Hevy, Strong, or just using my Notes app?</summary>
-        <p>Speed. You type a workout like a plain note and it becomes structured sets — then you log by holding a number and sliding, no keyboard. It's as fast as your Notes app, but it actually understands sets, reps and progress. And it's one app for lifts, food, weight, cardio and photos instead of five.</p>
+        <p>Speed. You add exercises the same way you would in any app — the difference is logging the numbers. Instead of tapping a number pad, you hold a number and slide, so a full set takes about two seconds. It's as quick as scribbling in your Notes app, but it's a real structured log with progress charts. And it's one app for lifts, food, weight, cardio and photos instead of five.</p>
       </details>
       <details>
         <summary>What platforms does it support?</summary>
@@ -333,8 +333,30 @@ var APP_STORE_URL = "https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/i
   var track  = car.querySelector('.car-track');
   var slides = Array.prototype.slice.call(car.querySelectorAll('.car-slide'));
   var dotsWrap = car.querySelector('.car-dots');
+  var captionEl = document.querySelector('.car-caption');
+  var captions = [
+    'Lifts · food · weight · cardio — fast.',
+    'Snap your plate — macros in seconds.',
+    'Or just describe your meal.',
+    'Calories & macros, at a glance.',
+    'An AI coach that knows your numbers.',
+    'It builds the workout — you approve it.',
+    'Water, cardio & body weight, tracked.',
+    'And a gym buddy that levels up with you.'
+  ];
   var n = slides.length;
   var idx = 0, timer = null, paused = false;
+  var demoVid = car.querySelector('.demo-vid');
+  function applyVidTheme() {
+    if (!demoVid) return;
+    var dk = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var want = dk ? demoVid.getAttribute('data-dark') : demoVid.getAttribute('data-light');
+    if (want && demoVid.getAttribute('src') !== want) {
+      demoVid.setAttribute('src', want);
+      demoVid.setAttribute('poster', dk ? demoVid.getAttribute('data-poster-dark') : demoVid.getAttribute('data-poster-light'));
+      demoVid.load();
+    }
+  }
   var IMG_MS = 3000;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -351,6 +373,7 @@ var APP_STORE_URL = "https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/i
 
   function render() {
     track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+    if (captionEl) captionEl.textContent = captions[idx] || '';
     dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
     slides.forEach(function (s, i) {
       var v = s.querySelector('video');
@@ -395,6 +418,15 @@ var APP_STORE_URL = "https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/i
     x0 = null;
   }, { passive: true });
 
+  applyVidTheme();
+  if (window.matchMedia) {
+    try {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+        applyVidTheme();
+        if (idx === 0) schedule();
+      });
+    } catch (e) {}
+  }
   render();
   schedule();
 })();
