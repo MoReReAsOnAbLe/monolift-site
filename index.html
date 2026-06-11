@@ -112,13 +112,13 @@ h1, h2, h3, .serif {
 .carousel-section { padding: 6px 0 52px; }
 .carousel-section .section-sub { text-align: center; color: var(--text); font-size: 16px; margin-bottom: 18px; font-family: var(--font-serif); font-weight: 800; letter-spacing: -0.01em; }
 .section-sub { text-align: center; color: var(--muted); font-size: 16px; margin-bottom: 36px; font-family: var(--font-sans); }
-.carousel { position: relative; max-width: 440px; margin: 0 auto; touch-action: pan-y; }
+.carousel { position: relative; max-width: 480px; margin: 0 auto; touch-action: pan-y; }
 .car-viewport { overflow: hidden; }
 .car-track { display: flex; transition: transform 0.5s cubic-bezier(.4,0,.2,1); }
 .car-slide { flex: 0 0 100%; display: flex; justify-content: center; align-items: center; }
 .car-slide picture { display: contents; }
 .car-slide img, .car-slide video {
-  height: clamp(460px, 82vh, 760px); width: auto; max-width: 100%;
+  height: clamp(520px, 90vh, 900px); width: auto; max-width: 100%;
   border-radius: 30px; box-shadow: var(--shadow); display: block; object-fit: contain;
 }
 .car-arrow {
@@ -139,7 +139,7 @@ h1, h2, h3, .serif {
 .carousel-cta { text-align: center; margin-top: 28px; }
 @media (max-width: 560px) {
   .car-arrow { display: none; }   /* rely on swipe */
-  .car-slide img, .car-slide video { height: clamp(420px, 80vh, 680px); }
+  .car-slide img, .car-slide video { height: clamp(460px, 88vh, 820px); }
 }
 @media (prefers-reduced-motion: reduce) { .car-track { transition: none; } }
 
