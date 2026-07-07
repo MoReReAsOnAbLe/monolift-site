@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reset your Monolift password</title>
+<link rel="icon" href="/favicon.png">
+<style>
+  :root{
+    --bg:#F0E7D2; --surface:#FFFFFF; --text:#1a1a1a; --muted:#6b6b6b;
+    --border:rgba(0,0,0,0.10); --accent:#0FB5C6; --accent-dark:#0A8E9C; --red:#E5654F;
+    --font-sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+    --font-serif:ui-serif,"New York","Iowan Old Style",Georgia,serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0A0A0A; --surface:#161616; --text:#F4EFE3; --muted:#9a9a9a; --border:rgba(255,255,255,0.12); }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);color:var(--text);font-family:var(--font-sans);padding:24px}
+  .card{width:100%;max-width:400px;background:var(--surface);border:1px solid var(--border);
+    border-radius:20px;padding:32px;box-shadow:0 20px 50px rgba(0,0,0,0.12)}
+  h1{font-family:var(--font-serif);font-size:26px;margin:0 0 6px}
+  p.sub{color:var(--muted);margin:0 0 22px;font-size:15px;line-height:1.45}
+  label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px}
+  input{width:100%;padding:13px 14px;border:1px solid var(--border);border-radius:12px;
+    background:transparent;color:var(--text);font-size:16px;font-family:inherit}
+  input:focus{outline:none;border-color:var(--accent)}
+  button{width:100%;margin-top:20px;padding:14px;border:none;border-radius:12px;
+    background:var(--accent);color:#00323a;font-size:16px;font-weight:700;cursor:pointer}
+  button:hover{background:var(--accent-dark);color:#fff}
+  button:disabled{opacity:.5;cursor:default}
+  .msg{margin-top:14px;font-size:14px;line-height:1.45}
+  .msg.err{color:var(--red)}
+  .hidden{display:none}
+  .center{text-align:center}
+  a.appbtn{display:inline-block;margin-top:20px;padding:13px 22px;border-radius:12px;
+    background:var(--accent);color:#00323a;font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div id="loading" class="center">
+      <h1>Checking your link…</h1>
+      <p class="sub">One moment.</p>
+    </div>
+
+    <form id="form" class="hidden" autocomplete="off">
+      <h1>Set a new password</h1>
+      <p class="sub">Choose a new password for your Monolift account.</p>
+      <label for="pw">New password</label>
+      <input id="pw" type="password" minlength="8" placeholder="At least 8 characters" required>
+      <label for="pw2">Confirm password</label>
+      <input id="pw2" type="password" minlength="8" placeholder="Re-enter password" required>
+      <div id="formErr" class="msg err hidden"></div>
+      <button id="submit" type="submit">Update password</button>
+    </form>
+
+    <div id="done" class="hidden center">
+      <h1>Password updated ✓</h1>
+      <p class="sub">You can now sign in with your new password.</p>
+      <a class="appbtn" href="worknotes://">Open Monolift</a>
+    </div>
+
+    <div id="error" class="hidden center">
+      <h1>Link expired</h1>
+      <p class="sub" id="errorText">This reset link is invalid or has already been used. Request a new one from the app.</p>
+      <a class="appbtn" href="worknotes://">Open Monolift</a>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://zuoeiwnzwcmmxvfonvjc.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp1b2Vpd256d2NtbXh2Zm9udmpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MzczOTMsImV4cCI6MjA5MTQxMzM5M30.g8cKFgmD4CUN1je0LlqpoUi8da9L-c6Dax8QXvjOGJc";
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const $ = (id) => document.getElementById(id);
+  function show(id){ ["loading","form","done","error"].forEach(s => $(s).classList.toggle("hidden", s !== id)); }
+  function showError(text){ if(text) $("errorText").textContent = text; show("error"); }
+
+  async function init(){
+    const p = new URLSearchParams(window.location.search);
+    const tokenHash = p.get("token_hash");
+    const type = p.get("type") || "recovery";
+    if(!tokenHash){ showError("This link is missing its token. Request a new reset email from the app."); return; }
+    const { error } = await client.auth.verifyOtp({ token_hash: tokenHash, type });
+    if(error){ showError("This reset link is invalid or has already been used. Request a new one from the app."); return; }
+    show("form");
+  }
+
+  $("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const pw = $("pw").value, pw2 = $("pw2").value;
+    const err = $("formErr");
+    err.classList.add("hidden");
+    if(pw.length < 8){ err.textContent = "Password must be at least 8 characters."; err.classList.remove("hidden"); return; }
+    if(pw !== pw2){ err.textContent = "Passwords do not match."; err.classList.remove("hidden"); return; }
+    $("submit").disabled = true;
+    const { error } = await client.auth.updateUser({ password: pw });
+    $("submit").disabled = false;
+    if(error){ err.textContent = error.message; err.classList.remove("hidden"); return; }
+    show("done");
+  });
+
+  init();
+</script>
+</body>
+</html>
