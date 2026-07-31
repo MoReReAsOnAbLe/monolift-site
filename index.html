@@ -3,432 +3,569 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monolift — Log a set in 2 seconds. No keyboard.</title>
-<meta name="description" content="The fast lifting log for people who gave up on bloated gym apps. Type your workout like a note, then hold a number and slide. ~2 seconds a set. Now on the App Store.">
-<meta property="og:title" content="Monolift — Log a set in 2 seconds. No keyboard.">
-<meta property="og:description" content="Type your workout like a note, then just hold a number and slide. The lifting log for people who went back to their Notes app. Now on the App Store.">
-<meta property="og:image" content="https://monolift.app/og-image.png">
-<meta property="og:url" content="https://monolift.app">
+<title>Monolift: The Fastest Workout Log App for iPhone</title>
+<meta name="description" content="The fastest workout log app for iPhone. Log sets like a note, drag-to-dial weights in 2 seconds, get PRs and charts automatically. Free 7-day trial.">
+<link rel="canonical" href="https://monolift.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Monolift">
+<meta property="og:title" content="Monolift: The Fastest Workout Log App for iPhone">
+<meta property="og:description" content="Type your workout like a note. Hold a number and slide — 2 seconds a set, no keyboard. Auto PRs, charts, and an AI coach that knows your lifts. Free 7-day trial.">
+<meta property="og:image" content="https://monolift.app/assets/app-icon-1024.png">
+<meta property="og:url" content="https://monolift.app/">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6766133889">
 <meta name="referrer" content="no-referrer-when-downgrade">
-<link rel="icon" href="/favicon.png">
+<link rel="icon" href="assets/app-icon-180.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 
-<!-- OPTIONAL privacy-light analytics (free, no cookie banner). Pick ONE, fill the token, uncomment.
-     Plausible auto-tracks the App Store click as an outbound link → gives you button CTR:
-       <script defer data-domain="monolift.app" src="https://plausible.io/js/script.outbound-links.js"></script>
-     Cloudflare Web Analytics:
-       <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"YOUR_TOKEN"}'></script>
--->
-
-<style>
-:root {
-  /* Light mode — warm cream like the app */
-  --bg: #F0E7D2;
-  --surface: #FFFFFF;
-  --text: #1a1a1a;
-  --text-soft: #2a2a2a;
-  --muted: #6b6b6b;
-  --border: rgba(0,0,0,0.08);
-  --shadow: 0 20px 50px rgba(0,0,0,0.08);
-
-  /* Brand */
-  --accent: #0FB5C6;          /* app cyan/teal */
-  --accent-dark: #0A8E9C;
-  --gold: #D8A636;            /* app macro-fat gold */
-  --red: #E5654F;             /* app macro-protein red */
-  --green: #2EA890;           /* app macro-carb teal */
-
-  --font-serif: ui-serif, "New York", "Iowan Old Style", "Source Serif Pro", "Hoefler Text", Georgia, "Times New Roman", serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0A0A0A;
-    --surface: #161616;
-    --text: #F4EFE3;          /* warm off-white like app */
-    --text-soft: #E8E2D4;
-    --muted: #9a9a9a;
-    --border: rgba(255,255,255,0.10);
-    --shadow: 0 20px 50px rgba(0,0,0,0.5);
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Monolift: Gym Buddy & Lift Log",
+  "url": "https://monolift.app/",
+  "installUrl": "https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/id6766133889",
+  "operatingSystem": "iOS 17.0 or later",
+  "applicationCategory": "HealthApplication",
+  "description": "The fastest workout log app for iPhone. Type your workout like a note, drag to dial weight and reps — about 2 seconds a set — and get automatic PRs, progress charts, and an AI coach that reads your real training history.",
+  "image": "https://monolift.app/assets/app-icon-1024.png",
+  "screenshot": [
+    "https://monolift.app/assets/screenshot-01-evolve-your-gym-monkey.jpg",
+    "https://monolift.app/assets/screenshot-02-log-workouts-at-typing-speed.jpg",
+    "https://monolift.app/assets/screenshot-03-streak-with-your-squad.jpg",
+    "https://monolift.app/assets/screenshot-04-snap-a-photo-track-macros.jpg",
+    "https://monolift.app/assets/screenshot-05-watch-your-prs-climb.jpg",
+    "https://monolift.app/assets/screenshot-06-ask-your-ai-coach.jpg"
+  ],
+  "author": { "@type": "Person", "name": "Brian Medlin" },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "description": "Free to download with a 7-day free trial of all features; subscription after the trial."
   }
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-body {
-  font-family: var(--font-sans);
-  color: var(--text);
-  background: var(--bg);
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1, h2, h3, .serif {
-  font-family: var(--font-serif);
-  font-weight: 800;
-  letter-spacing: -0.01em;
-}
-
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
-/* APP STORE BADGE — logo left, big "Continue for free", small "iPhone · no ads" */
-.appstore-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: #000;
-  color: #fff;
-  padding: 14px 24px;
-  border-radius: 14px;
-  text-decoration: none;
-  min-height: 44px;
-  transition: transform 0.1s, opacity 0.15s;
-  font-family: var(--font-sans);
-}
-.appstore-badge:hover { transform: translateY(-1px); opacity: 0.92; }
-.appstore-badge .apple-logo { width: 26px; height: 30px; fill: #fff; flex: 0 0 auto; }
-.appstore-badge .ab-text { display: flex; flex-direction: column; line-height: 1.04; text-align: left; }
-.appstore-badge .ab-text strong { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
-.appstore-badge .ab-text small { font-size: 11px; opacity: 0.9; }
-/* full-width variant (hero) */
-.appstore-badge.full { display: flex; width: 100%; justify-content: center; padding: 18px 24px; }
-.appstore-badge.full .ab-text strong { font-size: 24px; }
-.appstore-badge.full .apple-logo { width: 30px; height: 34px; }
-.appstore-badge.on-accent { background: #fff; color: #000; }
-.appstore-badge.on-accent .apple-logo { fill: #000; }
-@media (prefers-color-scheme: dark) {
-  .appstore-badge { background: #fff; color: #000; }
-  .appstore-badge .apple-logo { fill: #000; }
-}
-
-/* HERO — centered, pulled to the top */
-.hero { padding: 32px 0 18px; }
-.hero-inner { max-width: 680px; margin: 0 auto; text-align: center; }
-.hero h1 { font-size: clamp(40px, 6.6vw, 68px); line-height: 1.02; margin-bottom: 18px; }
-.hero h1 em { color: var(--accent); font-style: normal; }
-.hero .subhead { font-size: clamp(16px, 2vw, 20px); color: var(--muted); margin: 0 auto 28px; max-width: 560px; font-family: var(--font-sans); }
-.hero .subhead strong { color: var(--text); font-weight: 600; }
-
-/* CAROUSEL — one slide at a time, dots, swipe, auto-advance */
-.carousel-section { padding: 6px 0 52px; }
-.carousel-section .section-sub { text-align: center; color: var(--text); font-size: 16px; margin-bottom: 18px; font-family: var(--font-serif); font-weight: 800; letter-spacing: -0.01em; }
-.section-sub { text-align: center; color: var(--muted); font-size: 16px; margin-bottom: 36px; font-family: var(--font-sans); }
-.carousel { position: relative; max-width: 480px; margin: 0 auto; touch-action: pan-y; }
-.car-viewport { overflow: hidden; }
-.car-track { display: flex; transition: transform 0.5s cubic-bezier(.4,0,.2,1); }
-.car-slide { flex: 0 0 100%; display: flex; justify-content: center; align-items: center; }
-.car-slide picture { display: contents; }
-.car-slide img, .car-slide video {
-  height: clamp(520px, 90vh, 900px); width: auto; max-width: 100%;
-  border-radius: 30px; box-shadow: var(--shadow); display: block; object-fit: contain;
-}
-.car-arrow {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  width: 42px; height: 42px; border-radius: 50%;
-  border: 1px solid var(--border); background: var(--surface); color: var(--text);
-  font-size: 22px; line-height: 1; cursor: pointer; z-index: 2;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
-.car-arrow.prev { left: -10px; }
-.car-arrow.next { right: -10px; }
-.car-arrow:hover { background: var(--bg); }
-.car-dots { display: flex; gap: 9px; justify-content: center; margin-top: 22px; }
-.car-dots button { width: 9px; height: 9px; border-radius: 50%; border: none; padding: 0; background: var(--muted); opacity: 0.3; cursor: pointer; transition: all 0.2s; }
-.car-dots button.active { opacity: 1; background: var(--accent); width: 26px; border-radius: 5px; }
-.car-caption { text-align: center; font-family: var(--font-serif); font-weight: 800; letter-spacing: -0.01em; color: var(--text); font-size: 15px; line-height: 1.3; margin: 0 auto 16px; max-width: 340px; min-height: 1.3em; }
-.carousel-cta { text-align: center; margin-top: 28px; }
-@media (max-width: 560px) {
-  .car-arrow { display: none; }   /* rely on swipe */
-  .car-slide img, .car-slide video { height: clamp(460px, 88vh, 820px); }
-}
-@media (prefers-reduced-motion: reduce) { .car-track { transition: none; } }
-
-/* FEATURES */
-.features { padding: 64px 0; background: var(--surface); }
-.features h2, .faq h2 { font-size: clamp(30px, 4.5vw, 44px); text-align: center; margin-bottom: 8px; }
-.feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
-@media (max-width: 768px) { .feature-grid { grid-template-columns: 1fr; } }
-.feature { padding: 28px; background: var(--bg); border-radius: 18px; border: 1px solid var(--border); }
-.feature .icon { font-size: 32px; margin-bottom: 12px; }
-.feature h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; font-family: var(--font-serif); }
-.feature p { color: var(--muted); font-size: 15px; line-height: 1.55; }
-.feature code { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; font-size: 13px; }
-
-/* FAQ */
-.faq { padding: 64px 0; background: var(--surface); }
-.faq-list { max-width: 720px; margin: 0 auto; }
-.faq details { background: var(--bg); padding: 20px 22px; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 12px; }
-.faq summary { font-weight: 700; font-size: 16px; cursor: pointer; list-style: none; position: relative; padding-right: 28px; font-family: var(--font-serif); letter-spacing: -0.01em; }
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; position: absolute; right: 0; top: -4px; font-size: 26px; color: var(--accent); transition: transform 0.15s; font-weight: 400; }
-.faq details[open] summary::after { content: "−"; }
-.faq details p { margin-top: 12px; color: var(--muted); font-size: 15px; line-height: 1.6; font-family: var(--font-sans); }
-
-/* FINAL CTA */
-.final-cta { background: var(--accent); color: white; padding: 64px 0; text-align: center; position: relative; overflow: hidden; }
-.final-cta .cta-monkey { max-width: 160px; width: 30vw; height: auto; margin-bottom: 12px; display: inline-block; filter: drop-shadow(0 18px 24px rgba(0,0,0,0.25)); }
-.final-cta h2 { font-size: clamp(32px, 4.5vw, 48px); margin-bottom: 12px; color: white; }
-.final-cta p { font-size: 17px; opacity: 0.95; margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; }
-
-/* FOOTER */
-footer { padding: 36px 0; text-align: center; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); }
-footer .logo-foot { margin-bottom: 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); display: inline-block; text-decoration: none; font-family: var(--font-serif); }
-footer .logo-foot span { color: var(--accent); }
-footer a { color: var(--muted); text-decoration: none; margin: 0 10px; }
-footer a:hover { color: var(--text); }
-</style>
+</script>
 </head>
 <body>
 
-<!-- HERO -->
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/"><img src="assets/app-icon-180.png" alt="" width="30" height="30">Monolift</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="#screenshots">Screenshots</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#guides">Guides</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta appstore-link" data-ct="web_nav" href="https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/id6766133889?ct=web_nav&amp;mt=8">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
 <section class="hero">
-  <div class="container hero-inner">
-    <h1>Log a set in <em>2 seconds</em>.<br>No keyboard.</h1>
-    <p class="subhead">For lifters who ditched bloated apps and went back to their Notes app. <strong>Hold a number, slide, done</strong> — plus food, water, cardio and weight, all in one place.</p>
-    <a class="appstore-badge full" data-appstore data-ct="web_hero" aria-label="Continue for free on the App Store">
-      <svg class="apple-logo" viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-      <span class="ab-text"><strong>Continue for free</strong><small>App Store · iPhone · no ads</small></span>
-    </a>
-  </div>
-</section>
-
-<!-- CAROUSEL -->
-<section class="carousel-section">
-  <p class="car-caption" aria-live="polite"></p>
-  <div class="carousel" aria-roledescription="carousel" aria-label="App screenshots">
-    <button class="car-arrow prev" type="button" aria-label="Previous">‹</button>
-    <div class="car-viewport">
-      <div class="car-track">
-        <div class="car-slide"><video class="demo-vid" src="screenshots/demo-log.mp4" poster="screenshots/demo-log.png" data-light="screenshots/demo-log.mp4" data-dark="screenshots/demo-log-dark.mp4" data-poster-light="screenshots/demo-log.png" data-poster-dark="screenshots/demo-log-dark.png" muted playsinline preload="auto" aria-label="Logging a workout and seeing the progress chart"></video></div>
-        <div class="car-slide"><picture><source srcset="screenshots/shot-food-photo-dark.jpg" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-food-photo.jpg" alt="Snap a photo of your meal" loading="lazy"></picture></div>
-        <div class="car-slide"><picture><source srcset="screenshots/shot-food-ai-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-food-ai.png" alt="Describe a meal in text and AI logs it" loading="lazy"></picture></div>
-        <div class="car-slide"><picture><source srcset="screenshots/shot-nutrition-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-nutrition.png" alt="Daily calories and macros dashboard" loading="lazy"></picture></div>
-        <div class="car-slide"><picture><source srcset="screenshots/shot-coach-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-coach.png" alt="AI coach chat that knows your numbers" loading="lazy"></picture></div>
-        <div class="car-slide"><picture><source srcset="screenshots/shot-workout-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-workout.png" alt="AI builds a workout you approve" loading="lazy"></picture></div>
-        <div class="car-slide"><picture><source srcset="screenshots/shot-tracking-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-tracking.png" alt="Water, cardio and body weight tracking" loading="lazy"></picture></div>
-        <div class="car-slide"><picture><source srcset="screenshots/shot-monkey-dark.png" media="(prefers-color-scheme: dark)"><img src="screenshots/shot-monkey.png" alt="Banaño the gym-buddy monkey and your stats" loading="lazy"></picture></div>
-      </div>
-    </div>
-    <button class="car-arrow next" type="button" aria-label="Next">›</button>
-    <div class="car-dots" role="tablist" aria-label="Choose slide"></div>
-  </div>
-  <div class="container carousel-cta">
-    <a class="appstore-badge" data-appstore data-ct="web_gallery" aria-label="Continue for free on the App Store">
-      <svg class="apple-logo" viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-      <span class="ab-text"><strong>Continue for free</strong><small>App Store · iPhone · no ads</small></span>
-    </a>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features">
   <div class="container">
-    <h2>As fast as Notes — but made for lifting.</h2>
-    <p class="section-sub">Built for lifters who actually lift.</p>
-    <div class="feature-grid">
-      <div class="feature">
-        <div class="icon">🎚️</div>
-        <h3>Drag-and-dial logging</h3>
-        <p>Hold a number and slide to set weight or reps — a full set in about two seconds. No keyboard, no number pad. It's the part no other app has.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">🏆</div>
-        <h3>Automatic PRs &amp; progress</h3>
-        <p>Every set you log becomes a chart. Monolift tracks your personal records and progress over time automatically — so you can actually see the overload.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">🤖</div>
-        <h3>An AI coach that knows your numbers</h3>
-        <p>It reads your real history, flags plateaus, and writes your next session — you approve it before it's added to your log.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">📊</div>
-        <h3>One app, not five</h3>
-        <p>Lifts, food (snap a photo or just describe it), water, cardio, body weight, progress photos — all in one place.</p>
+    <div class="hero-copy">
+      <span class="eyebrow">iPhone · iOS 17+ · free 7-day trial</span>
+      <h1>The fastest <span class="accent">workout log app</span> for iPhone</h1>
+      <p class="lede">Type your workout like a note — Monolift turns it into sets, reps, and PRs.
+        <strong>Hold a number and slide to log a set in about 2 seconds.</strong> No keyboard,
+        no five-screen forms, no social feed. A lift log built for people who went back to
+        Apple Notes because every gym app was slower than typing.</p>
+      <a class="appstore-btn appstore-link" data-ct="web_hero" href="https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/id6766133889?ct=web_hero&amp;mt=8">
+        <svg viewBox="0 0 384 512" aria-hidden="true" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+        <span><span class="small">Download on the</span><span class="big">App Store</span></span>
+      </a>
+      <p class="cta-note">Free for 7 days, full access. Cancel anytime before the trial ends.</p>
+      <p class="hero-proof">
+        <span>2 sec a set</span><span>drag-to-dial logging</span><span>auto PRs &amp; charts</span><span>AI coach</span><span>no social feed</span>
+      </p>
+    </div>
+
+    <div class="demo-wrap">
+      <div class="demo-card" id="demo-card">
+        <p class="note-title">Chest and Back Day — today</p>
+        <div class="exercise">
+          <p class="name">Bench Press</p>
+          <div class="set-row">
+            <span class="pill weight drag" id="drag-pill" role="slider" tabindex="0"
+                  aria-label="Weight — hold and slide, or use arrow keys"
+                  aria-valuemin="45" aria-valuemax="500" aria-valuenow="225"
+                  aria-valuetext="225 pounds">225 lbs</span>
+            <span class="times">×</span>
+            <span class="pill rep">8</span>
+            <span class="pill rep">8</span>
+            <span class="pill rep">6</span>
+          </div>
+        </div>
+        <div class="exercise">
+          <p class="name">Incline Dumbbell Press</p>
+          <div class="set-row">
+            <span class="pill weight">70 lbs</span>
+            <span class="times">×</span>
+            <span class="pill rep">10</span>
+            <span class="pill rep">9</span>
+          </div>
+        </div>
+        <p class="demo-hint"><span class="arrows" aria-hidden="true">↕</span> hold the weight, slide to change it — that's the whole app</p>
+        <p class="pr-flash" id="pr-flash" aria-live="polite"></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="faq">
+<!-- ============ DOWNLOAD ============ -->
+<section class="section" id="download">
   <div class="container">
-    <h2>Common questions</h2>
-    <p class="section-sub">Everything you'd want to know before downloading.</p>
+    <div class="section-head">
+      <span class="eyebrow">download</span>
+      <h2>On the App Store now</h2>
+      <p>Monolift is a lift log for iPhone (iOS 17 or later). Every feature is free for 7 days —
+         log workouts, track macros, ask the coach — then it's a simple subscription. The App
+         Store shows pricing before you start.</p>
+    </div>
+    <a class="appstore-btn appstore-link" data-ct="web_download" href="https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/id6766133889?ct=web_download&amp;mt=8">
+      <svg viewBox="0 0 384 512" aria-hidden="true" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span><span class="small">Download on the</span><span class="big">App Store</span></span>
+    </a>
+    <p class="cta-note">No Android or web version — Monolift is iPhone-only.</p>
+  </div>
+</section>
+
+<!-- ============ SCREENSHOTS ============ -->
+<section class="section" id="screenshots">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">screenshots</span>
+      <h2>A gym notes app that grew a brain</h2>
+      <p>Your workout is a plain-text note that renders into data — tappable sets, automatic
+         PRs, progress charts, and a coach (plus one monkey) watching the numbers.</p>
+    </div>
+    <div class="shots" role="list">
+      <figure class="shot" role="listitem">
+        <img src="assets/screenshot-02-log-workouts-at-typing-speed-web.jpg" width="647" height="1400" loading="eager"
+             alt="Logging a workout in Monolift: a plain-text note rendered as exercise cards with weight and rep pills and drag-to-dial set logging">
+        <figcaption><strong>Log sets in one swipe.</strong> Hold a number, slide, done — no keyboard.</figcaption>
+      </figure>
+      <figure class="shot" role="listitem">
+        <img src="assets/screenshot-05-watch-your-prs-climb-web.jpg" width="647" height="1400" loading="lazy"
+             alt="Bench press progress chart in Monolift with an automatic PR badge showing 235 lbs for 6 reps">
+        <figcaption><strong>Watch your PRs climb.</strong> Every set feeds per-exercise charts and PR detection.</figcaption>
+      </figure>
+      <figure class="shot" role="listitem">
+        <img src="assets/screenshot-06-ask-your-ai-coach-web.jpg" width="647" height="1400" loading="lazy"
+             alt="Monolift AI coach answering “How's my bench progressing?” with a chart built from logged sets">
+        <figcaption><strong>Ask your AI coach.</strong> It reads your actual log — not generic advice.</figcaption>
+      </figure>
+      <figure class="shot" role="listitem">
+        <img src="assets/screenshot-04-snap-a-photo-track-macros-web.jpg" width="647" height="1400" loading="lazy"
+             alt="Monolift nutrition tracking with calories, protein, carbs and fat logged by photo, barcode, or text">
+        <figcaption><strong>Track macros your way.</strong> Photo, barcode, text, or search — instant estimates.</figcaption>
+      </figure>
+      <figure class="shot" role="listitem">
+        <img src="assets/screenshot-01-evolve-your-gym-monkey-web.jpg" width="647" height="1400" loading="lazy"
+             alt="Monolift gym monkey Banaño evolving through five ranks from Newbie to Legend with hunger, energy and strength stats">
+        <figcaption><strong>Evolve your gym monkey.</strong> Banaño levels up when you log — and sulks when you don't.</figcaption>
+      </figure>
+      <figure class="shot" role="listitem">
+        <img src="assets/screenshot-03-streak-with-your-squad-web.jpg" width="647" height="1400" loading="lazy"
+             alt="A private Monolift Squad holding a 42-day group workout streak">
+        <figcaption><strong>Streak with your Squad.</strong> Private crews, shared streaks, kudos.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section" id="how-it-works">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">how it works</span>
+      <h2>Three steps. Two seconds a set.</h2>
+      <p>Monolift works like the plain-text workout log you already keep — in Apple Notes, a
+         notebook, or a spreadsheet — minus the part where the data goes nowhere.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Type it like a note</h3>
+        <p>Write your workout the way you'd text it. A colon marks the exercise, commas separate
+           sets. Monolift live-renders it into structured cards with tappable weight and rep pills.</p>
+        <p class="note-line">Bench Press: 225 lbs 8, 8, 6</p>
+      </div>
+      <div class="step">
+        <h3>Hold &amp; slide to log</h3>
+        <p>Long-press any number and drag to change it — plate-by-plate steps, a haptic tick per
+           step, no number pad. Rest timers run on your Lock Screen so you never unlock mid-set.</p>
+        <p class="note-line">225 → 230 → 235 · ~2 sec/set</p>
+      </div>
+      <div class="step">
+        <h3>Progress tracks itself</h3>
+        <p>Every set feeds per-exercise charts and automatic PR detection. The AI coach reads your
+           history, flags plateaus, and suggests deloads. Banaño ranks up while you do.</p>
+        <p class="note-line">PR · 235 lbs × 6 · chart updated</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUIDES ============ -->
+<section class="section" id="guides">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">guides</span>
+      <h2>Guides for lifters</h2>
+      <p>Honest answers to the questions lifters actually search — how to log, what to switch
+         to, and when to back off. No fluff, written by the people who built a lift log.</p>
+    </div>
+    <div class="guide-grid">
+      <a class="guide-card" href="guides/how-to-track-workouts.html">
+        <span class="tag">Training</span>
+        <h3>How to Log Your Workouts: What to Track and the Fastest Way to Do It</h3>
+        <p>What to record, and the simple system that actually sticks.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="guide-card" href="guides/hevy-vs-strong.html">
+        <span class="tag">Switching</span>
+        <h3>Hevy vs Strong: Which Lifting App Should You Actually Use?</h3>
+        <p>The honest head-to-head — and when neither is the right pick.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="guide-card" href="guides/apple-notes-workout-template.html">
+        <span class="tag">From Notes &amp; paper</span>
+        <h3>Free Apple Notes Workout Templates (Copy-Paste PPL, Upper/Lower, Full Body)</h3>
+        <p>Genuinely useful templates — and the ceiling you'll hit with them.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="guide-card" href="guides/strong-app-alternatives.html">
+        <span class="tag">Switching</span>
+        <h3>The Best Strong App Alternatives for Lifters on iPhone</h3>
+        <p>What to use if Strong stopped working for you — and how to export your data first.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="guide-card" href="guides/hevy-alternatives.html">
+        <span class="tag">Switching</span>
+        <h3>The Best Hevy Alternatives for Serious Lifters</h3>
+        <p>The best replacements if the feed and the taps got old.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="guide-card" href="guides/best-workout-tracker-apps-iphone.html">
+        <span class="tag">Switching</span>
+        <h3>The Best Workout Tracker Apps for iPhone, Actually Tested</h3>
+        <p>Hevy, Strong, Jefit and more — with honest when-each-wins verdicts.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="guide-card" href="guides/gym-notebook-vs-app.html">
+        <span class="tag">From Notes &amp; paper</span>
+        <h3>Paper Gym Notebook vs Workout App: An Honest Comparison</h3>
+        <p>Paper is fast. Here's what finally beats it.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="guide-card" href="guides/workout-spreadsheet-vs-app.html">
+        <span class="tag">From Notes &amp; paper</span>
+        <h3>Workout Spreadsheet vs App: Which Tracks Training Better?</h3>
+        <p>When to keep the sheet — and when to retire it.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="guide-card" href="guides/track-progressive-overload.html">
+        <span class="tag">Training</span>
+        <h3>How to Track Progressive Overload: PRs, Charts, and the 2-for-2 Rule</h3>
+        <p>How to know your numbers are actually going up.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="guide-card" href="guides/when-to-deload-app.html">
+        <span class="tag">Training</span>
+        <h3>When to Deload: Signs of a Plateau (and the App That Flags It)</h3>
+        <p>The stall signals hiding in your own log — and who should read them.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="guide-card" href="guides/ai-coach-vs-chatgpt.html">
+        <span class="tag">Features</span>
+        <h3>AI Fitness Coach vs ChatGPT: Which Should Program Your Training?</h3>
+        <p>Chatbots write decent programs. They've never seen your sets.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="guide-card" href="guides/gamified-workout-apps.html">
+        <span class="tag">Features</span>
+        <h3>Gamified Workout Apps: Streaks, Pets, and Ranks That Don't Ruin Your Log</h3>
+        <p>Making consistency a game — without dumbing down the tracking.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">faq</span>
+      <h2>Questions lifters ask</h2>
+    </div>
     <div class="faq-list">
       <details>
-        <summary>What makes it different from Hevy, Strong, or just using my Notes app?</summary>
-        <p>Speed. You add exercises the same way you would in any app — the difference is logging the numbers. Instead of tapping a number pad, you hold a number and slide, so a full set takes about two seconds. It's as quick as scribbling in your Notes app, but it's a real structured log with progress charts. And it's one app for lifts, food, weight, cardio and photos instead of five.</p>
+        <summary>Is Monolift free?</summary>
+        <p class="answer">Monolift is free to download with a full-featured 7-day trial — log workouts, track
+        macros, use the AI coach, everything. After the trial it's a subscription (the App Store
+        shows pricing before you subscribe). There's no free-forever tier, and we'd rather tell
+        you that here than surprise you on day 8.</p>
       </details>
       <details>
-        <summary>What platforms does it support?</summary>
-        <p>iPhone (iOS). An Android version may come later depending on demand.</p>
+        <summary>What's the fastest way to log workouts at the gym?</summary>
+        <p class="answer">Anything that doesn't make you type between sets. In Monolift you write your workout
+        like a note, then hold a number and slide to change weight or reps — about 2 seconds a
+        set, no keyboard. <a href="guides/how-to-track-workouts.html">Learn more: how to log your workouts →</a></p>
       </details>
       <details>
-        <summary>What happens to my data?</summary>
-        <p>Your data syncs to your private account. No ads, and we don't sell your data. Sign in with Apple is supported.</p>
+        <summary>How does Monolift compare to Hevy and Strong?</summary>
+        <p class="answer">Hevy and Strong log workouts through structured forms — pick an exercise, tap into
+        fields, save. Monolift is built around speed: plain-text notes that render into sets,
+        and drag-to-dial logging with no keyboard. No social feed either.
+        <a href="guides/hevy-vs-strong.html">Learn more: Hevy vs Strong →</a></p>
       </details>
       <details>
-        <summary>What's with the monkey?</summary>
-        <p>That's Banaño — your gym buddy. He levels up when you log and gets dramatically sad when you ghost the gym. Totally optional, but most people keep him around.</p>
+        <summary>Is Monolift a good alternative to the Strong app?</summary>
+        <p class="answer">If you liked Strong's minimalism but want faster logging, yes — you rebuild your
+        routine by typing it as plain text in a few minutes, then log every set by sliding a
+        number. <a href="guides/strong-app-alternatives.html">Learn more: the best Strong alternatives →</a></p>
+      </details>
+      <details>
+        <summary>Is Monolift a good alternative to Hevy?</summary>
+        <p class="answer">If you don't need a public feed, Monolift trades Hevy's social layer for the fastest
+        set logging on iPhone — plus private Squad streaks with people you actually lift with.
+        <a href="guides/hevy-alternatives.html">Learn more: the best Hevy alternatives →</a></p>
+      </details>
+      <details>
+        <summary>Can I keep logging workouts the way I do in Apple Notes?</summary>
+        <p class="answer">Yes — that's the whole idea. Type <code>Bench Press: 135 lbs 8, 8, 6</code> exactly like
+        you would in Notes, and Monolift renders it into tappable sets with automatic charts
+        and PRs. <a href="guides/apple-notes-workout-template.html">Learn more: Apple Notes workout templates →</a></p>
+      </details>
+      <details>
+        <summary>Is logging in an app really as fast as a paper gym notebook?</summary>
+        <p class="answer">Writing "225×8" on paper takes about two seconds. So does holding a number and
+        sliding in Monolift — except the app also gives you progress charts, PR detection, and a
+        Lock Screen rest timer. <a href="guides/gym-notebook-vs-app.html">Learn more: gym notebook vs app →</a></p>
+      </details>
+      <details>
+        <summary>Can Monolift replace my training spreadsheet?</summary>
+        <p class="answer">If the spreadsheet exists so you can see progress over time, yes — per-exercise
+        charts and PR tracking are automatic, and entering data is typing a note instead of
+        editing cells on a phone. <a href="guides/workout-spreadsheet-vs-app.html">Learn more: spreadsheet vs app →</a></p>
+      </details>
+      <details>
+        <summary>What should I record in my workout log?</summary>
+        <p class="answer">Exercise, weight, and reps for every working set — plus optional notes like RPE or
+        cues ("go slower"). That's enough to see progressive overload. Monolift captures all of
+        it from one typed line. <a href="guides/how-to-track-workouts.html">Learn more: what to track and why →</a></p>
+      </details>
+      <details>
+        <summary>Does Monolift track PRs and progressive overload automatically?</summary>
+        <p class="answer">Yes. Every set you log updates per-exercise charts and flags weight and rep PRs —
+        no extra bookkeeping. <a href="guides/track-progressive-overload.html">Learn more: how to track progressive overload →</a></p>
+      </details>
+      <details>
+        <summary>Can Monolift tell me when I've hit a plateau or need a deload?</summary>
+        <p class="answer">The AI coach (a Pro feature, included in the trial) reads your recent sessions,
+        flags stalls, and suggests deloads based on your actual numbers — not a generic
+        template. <a href="guides/when-to-deload-app.html">Learn more: when to deload →</a></p>
+      </details>
+      <details>
+        <summary>What can Monolift's AI coach do that ChatGPT can't?</summary>
+        <p class="answer">See your training. The coach reads your real log, so it can build a session from
+        your actual lifts, save it into your notes, and answer "how's my bench progressing?"
+        with your own chart. <a href="guides/ai-coach-vs-chatgpt.html">Learn more: AI coach vs ChatGPT →</a></p>
+      </details>
+      <details>
+        <summary>How do Monolift's monkey buddy and streaks work?</summary>
+        <p class="answer">Banaño, your gym monkey, levels through five ranks as you log workouts and food —
+        and his stats decay when you skip. Squads add a private group streak with friends.
+        It's seasoning on top of a serious log, not the point.
+        <a href="guides/gamified-workout-apps.html">Learn more: gamified workout apps →</a></p>
+      </details>
+      <details>
+        <summary>Why pick Monolift over other iPhone workout trackers?</summary>
+        <p class="answer">One reason: logging speed. A tracker only works if you use it every session, and
+        you only use the one that doesn't slow the workout down.
+        <a href="guides/best-workout-tracker-apps-iphone.html">Learn more: the best iPhone workout trackers, tested →</a></p>
+      </details>
+      <details>
+        <summary>Is Monolift available on Android or the web?</summary>
+        <p class="answer">No — Monolift is iPhone-only (iOS 17 or later), on the US App Store. There's no
+        Android or web version.</p>
+      </details>
+      <details>
+        <summary>Does Monolift work with Apple Watch or sync with Apple Health?</summary>
+        <p class="answer">Not today — there's no Watch app and no automatic Apple Health sync. Monolift is
+        built so logging on the phone itself takes about 2 seconds a set, no wrist required.</p>
+      </details>
+      <details>
+        <summary>Does Monolift have a social feed?</summary>
+        <p class="answer">No public feed. Squads are private: you invite the people you lift with, share
+        workouts, send kudos, and keep a group streak. Nobody performs for strangers.</p>
+      </details>
+      <details>
+        <summary>Are Monolift's photo calorie counts exact?</summary>
+        <p class="answer">No — they're instant estimates. Snap a photo or describe a meal and you get
+        estimated calories and macros in seconds; use barcode scan or the USDA database when
+        you want label-level precision.</p>
+      </details>
+      <details>
+        <summary>How long should you rest between sets?</summary>
+        <p class="answer">Rough guide: 2–5 minutes for heavy strength work, 60–90 seconds for hypertrophy
+        ranges. Monolift's rest timers run as Live Activities on your Lock Screen, so you don't
+        unlock your phone to check.</p>
       </details>
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="final-cta">
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta" id="get">
   <div class="container">
-    <img class="cta-monkey" src="screenshots/cta-monkey.png" alt="Trophy monkey">
-    <h2>Stop fighting your gym app.</h2>
-    <p>Type your lift like a note. Hold a number, slide. ~2 seconds a set.</p>
-    <a class="appstore-badge on-accent" data-appstore data-ct="web_final" aria-label="Continue for free on the App Store">
-      <svg class="apple-logo" viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-      <span class="ab-text"><strong>Continue for free</strong><small>App Store · iPhone · no ads</small></span>
+    <img class="icon" src="assets/app-icon-360.png" alt="Monolift app icon" width="84" height="84">
+    <h2>Stop tapping.<br>Start lifting.</h2>
+    <p>Your next workout takes the same effort as typing a note — and this time the
+       numbers go somewhere. Try everything free for 7 days.</p>
+    <a class="appstore-btn appstore-link" data-ct="web_final" href="https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/id6766133889?ct=web_final&amp;mt=8">
+      <svg viewBox="0 0 384 512" aria-hidden="true" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span><span class="small">Download on the</span><span class="big">App Store</span></span>
     </a>
+    <p class="cta-note">Free 7-day trial · iPhone · iOS 17+</p>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
+</main>
+
+<footer class="site-footer">
   <div class="container">
-    <a href="/" class="logo-foot">Mono<span>lift</span></a>
-    <div>Now on the App Store</div>
-    <div style="margin-top:10px;">
-      <a href="/privacy.html">Privacy</a>·
-      <a href="/support.html">Support</a>·
-      <a href="/terms.html">Terms</a>·
-      <a href="mailto:hello@monolift.app">Contact</a>
+    <div class="cols">
+      <a class="brand" href="/"><img src="assets/app-icon-180.png" alt="" width="30" height="30">Monolift</a>
+      <nav aria-label="Footer">
+        <a href="#guides">Guides</a>
+        <a href="https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/id6766133889?ct=web_footer&amp;mt=8" class="appstore-link" data-ct="web_footer">App Store</a>
+        <a href="/support">Support</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
     </div>
-    <div style="margin-top:14px; font-size:12px;">© 2026 Monolift. Made for lifters.</div>
+    <p class="legal">© 2026 Monolift · Apple, the Apple logo, and App Store are trademarks of Apple Inc.</p>
   </div>
 </footer>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Is Monolift free?","acceptedAnswer":{"@type":"Answer","text":"Monolift is free to download with a full-featured 7-day trial. After the trial it's a subscription (the App Store shows pricing before you subscribe). There is no free-forever tier."}},
+    {"@type":"Question","name":"What's the fastest way to log workouts at the gym?","acceptedAnswer":{"@type":"Answer","text":"Anything that doesn't make you type between sets. In Monolift you write your workout like a note, then hold a number and slide to change weight or reps — about 2 seconds a set, no keyboard."}},
+    {"@type":"Question","name":"How does Monolift compare to Hevy and Strong?","acceptedAnswer":{"@type":"Answer","text":"Hevy and Strong log workouts through structured forms. Monolift is built around speed: plain-text notes that render into sets, and drag-to-dial logging with no keyboard — and no social feed."}},
+    {"@type":"Question","name":"Is Monolift a good alternative to the Strong app?","acceptedAnswer":{"@type":"Answer","text":"If you liked Strong's minimalism but want faster logging, yes — rebuild your routine by typing it as plain text in minutes, then log every set by sliding a number."}},
+    {"@type":"Question","name":"Is Monolift a good alternative to Hevy?","acceptedAnswer":{"@type":"Answer","text":"If you don't need a public feed, Monolift trades Hevy's social layer for the fastest set logging on iPhone, plus private Squad streaks."}},
+    {"@type":"Question","name":"Can I keep logging workouts the way I do in Apple Notes?","acceptedAnswer":{"@type":"Answer","text":"Yes — type Bench Press: 135 lbs 8, 8, 6 exactly like you would in Notes, and Monolift renders it into tappable sets with automatic charts and PRs."}},
+    {"@type":"Question","name":"Is logging in an app really as fast as a paper gym notebook?","acceptedAnswer":{"@type":"Answer","text":"Writing 225×8 on paper takes about two seconds. So does holding a number and sliding in Monolift — plus you get progress charts, PR detection, and a Lock Screen rest timer."}},
+    {"@type":"Question","name":"Can Monolift replace my training spreadsheet?","acceptedAnswer":{"@type":"Answer","text":"If the spreadsheet exists so you can see progress over time, yes — per-exercise charts and PR tracking are automatic, and entering data is typing a note instead of editing cells on a phone."}},
+    {"@type":"Question","name":"What should I record in my workout log?","acceptedAnswer":{"@type":"Answer","text":"Exercise, weight, and reps for every working set — plus optional notes like RPE or cues. That's enough to see progressive overload."}},
+    {"@type":"Question","name":"Does Monolift track PRs and progressive overload automatically?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every set you log updates per-exercise charts and flags weight and rep PRs automatically."}},
+    {"@type":"Question","name":"Can Monolift tell me when I've hit a plateau or need a deload?","acceptedAnswer":{"@type":"Answer","text":"The AI coach (a Pro feature, included in the trial) reads your recent sessions, flags stalls, and suggests deloads based on your actual numbers."}},
+    {"@type":"Question","name":"What can Monolift's AI coach do that ChatGPT can't?","acceptedAnswer":{"@type":"Answer","text":"See your training. The coach reads your real log, so it can build a session from your actual lifts, save it into your notes, and answer progress questions with your own chart."}},
+    {"@type":"Question","name":"How do Monolift's monkey buddy and streaks work?","acceptedAnswer":{"@type":"Answer","text":"Banaño levels through five ranks as you log workouts and food, and his stats decay when you skip. Squads add a private group streak with friends."}},
+    {"@type":"Question","name":"Why pick Monolift over other iPhone workout trackers?","acceptedAnswer":{"@type":"Answer","text":"Logging speed. A tracker only works if you use it every session, and you only use the one that doesn't slow the workout down."}},
+    {"@type":"Question","name":"Is Monolift available on Android or the web?","acceptedAnswer":{"@type":"Answer","text":"No — Monolift is iPhone-only (iOS 17 or later), available on the US App Store."}},
+    {"@type":"Question","name":"Does Monolift work with Apple Watch or sync with Apple Health?","acceptedAnswer":{"@type":"Answer","text":"Not today — there's no Watch app and no automatic Apple Health sync. Logging on the phone itself takes about 2 seconds a set."}},
+    {"@type":"Question","name":"Does Monolift have a social feed?","acceptedAnswer":{"@type":"Answer","text":"No public feed. Squads are private: invite the people you lift with, share workouts, send kudos, and keep a group streak."}},
+    {"@type":"Question","name":"Are Monolift's photo calorie counts exact?","acceptedAnswer":{"@type":"Answer","text":"No — they're instant estimates. Snap a photo or describe a meal for estimated calories and macros; use barcode scan or the USDA database for label-level precision."}},
+    {"@type":"Question","name":"How long should you rest between sets?","acceptedAnswer":{"@type":"Answer","text":"Rough guide: 2–5 minutes for heavy strength work, 60–90 seconds for hypertrophy ranges. Monolift's rest timers run as Live Activities on the Lock Screen."}}
+  ]
+}
+</script>
+
 <script>
-// ============================================================================
-//  ⬇️  ONE THING TO EDIT: paste your real App Store URL here (no query string).
-//  Find it in App Store Connect → your app → "View on App Store", e.g.
-//  https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/id1234567890
-// ============================================================================
-var APP_STORE_URL = "https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/id6766133889";
-
-// Wire every [data-appstore] button to the App Store with an attribution tag.
 (function () {
-  var params = new URLSearchParams(window.location.search);
-  var src = (params.get('utm_content') || params.get('utm_campaign') || '')
-              .replace(/[^a-z0-9_-]/gi, '').slice(0, 28);
-  document.querySelectorAll('[data-appstore]').forEach(function (a) {
-    var ct = a.getAttribute('data-ct') || 'web';
-    if (src) ct = (ct + '_' + src).slice(0, 40); // Apple caps ct at 40 chars
-    a.href = APP_STORE_URL + (APP_STORE_URL.indexOf('?') > -1 ? '&' : '?')
-             + 'ct=' + encodeURIComponent(ct) + '&mt=8';
-  });
-})();
-
-// Carousel: one slide at a time. Video plays fully → advance; images wait 3s →
-// advance; loop. Swipe (touch), arrows, and dots all work. Pauses on hover.
-(function () {
-  var car = document.querySelector('.carousel');
-  if (!car) return;
-  var track  = car.querySelector('.car-track');
-  var slides = Array.prototype.slice.call(car.querySelectorAll('.car-slide'));
-  var dotsWrap = car.querySelector('.car-dots');
-  var captionEl = document.querySelector('.car-caption');
-  var captions = [
-    'Lifts · food · weight · cardio — fast.',
-    'Snap your plate — macros in seconds.',
-    'Or just describe your meal.',
-    'Calories & macros, at a glance.',
-    'An AI coach that knows your numbers.',
-    'It builds the workout — you approve it.',
-    'Water, cardio & body weight, tracked.',
-    'And a gym buddy that levels up with you.'
-  ];
-  var n = slides.length;
-  var idx = 0, timer = null, paused = false;
-  var demoVid = car.querySelector('.demo-vid');
-  function applyVidTheme() {
-    if (!demoVid) return;
-    var dk = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var want = dk ? demoVid.getAttribute('data-dark') : demoVid.getAttribute('data-light');
-    if (want && demoVid.getAttribute('src') !== want) {
-      demoVid.setAttribute('src', want);
-      demoVid.setAttribute('poster', dk ? demoVid.getAttribute('data-poster-dark') : demoVid.getAttribute('data-poster-light'));
-      demoVid.load();
-    }
-  }
-  var IMG_MS = 3000;
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  var dots = slides.map(function (_, i) {
-    var b = document.createElement('button');
-    b.type = 'button';
-    b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-    b.addEventListener('click', function () { go(i); });
-    dotsWrap.appendChild(b);
-    return b;
-  });
-
-  function clearTimer() { if (timer) { clearTimeout(timer); timer = null; } if (window._carEnd) { window._carEnd(); window._carEnd = null; } }
-
-  function render() {
-    track.style.transform = 'translateX(' + (-idx * 100) + '%)';
-    if (captionEl) captionEl.textContent = captions[idx] || '';
-    dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
-    slides.forEach(function (s, i) {
-      var v = s.querySelector('video');
-      if (v && i !== idx) { try { v.pause(); } catch (e) {} v.onended = null; }
+  /* --- attribution: carry utm_content/utm_campaign from posts into the ct= tag --- */
+  var params = new URLSearchParams(location.search);
+  var vid = params.get('utm_content') || params.get('utm_campaign');
+  if (vid) {
+    vid = vid.replace(/[^\w-]/g, '').slice(0, 40);
+    document.querySelectorAll('.appstore-link').forEach(function (a) {
+      try {
+        var u = new URL(a.href);
+        u.searchParams.set('ct', (a.dataset.ct || 'web') + '_' + vid);
+        a.href = u.toString();
+      } catch (e) {}
     });
   }
 
-  function schedule() {
-    clearTimer();
-    if (paused) return;
-    var vid = slides[idx].querySelector('video');
-    if (vid) {
-      try { vid.currentTime = 0; } catch (e) {}
-      var p = vid.play(); if (p && p.catch) p.catch(function () {});
-      if (reduce) return;                       // play once, don't auto-advance
-      vid.onended = function () { next(); };
-      window._carEnd = function () { vid.onended = null; };
-      var dur = (isFinite(vid.duration) && vid.duration > 0) ? vid.duration * 1000 : 9000;
-      timer = setTimeout(next, dur + 600);      // safety net if 'ended' never fires
+  /* --- hero drag-to-dial demo --- */
+  var pill = document.getElementById('drag-pill');
+  var flash = document.getElementById('pr-flash');
+  if (!pill) return;
+  var weight = 225, startWeight = 225, startY = 0, dragging = false, flashTimer = null;
+  var MIN = 45, MAX = 500, STEP = 5, PIXELS_PER_STEP = 14;
+
+  function render() {
+    pill.textContent = weight + ' lbs';
+    pill.setAttribute('aria-valuenow', weight);
+    pill.setAttribute('aria-valuetext', weight + ' pounds');
+  }
+  function clamp(w) { return Math.min(MAX, Math.max(MIN, w)); }
+  function showPR() {
+    if (weight > startWeight) {
+      flash.textContent = '🏆 ' + weight + ' lbs — new PR territory. Logged.';
+    } else if (weight < startWeight) {
+      flash.textContent = 'Deload noted. Smart.';
     } else {
-      if (reduce) return;
-      timer = setTimeout(next, IMG_MS);
+      return;
     }
+    flash.classList.add('show');
+    clearTimeout(flashTimer);
+    flashTimer = setTimeout(function () { flash.classList.remove('show'); }, 2200);
   }
 
-  function go(i)   { clearTimer(); idx = (i % n + n) % n; render(); schedule(); }
-  function next()  { go(idx + 1); }
-  function prev()  { go(idx - 1); }
-
-  var pa = car.querySelector('.car-arrow.prev'); if (pa) pa.addEventListener('click', prev);
-  var na = car.querySelector('.car-arrow.next'); if (na) na.addEventListener('click', next);
-
-  car.addEventListener('mouseenter', function () { paused = true; clearTimer(); });
-  car.addEventListener('mouseleave', function () { paused = false; schedule(); });
-
-  var x0 = null, vp = car.querySelector('.car-viewport');
-  vp.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-  vp.addEventListener('touchend', function (e) {
-    if (x0 === null) return;
-    var dx = e.changedTouches[0].clientX - x0;
-    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
-    x0 = null;
-  }, { passive: true });
-
-  applyVidTheme();
-  if (window.matchMedia) {
-    try {
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
-        applyVidTheme();
-        if (idx === 0) schedule();
-      });
-    } catch (e) {}
+  pill.addEventListener('pointerdown', function (e) {
+    dragging = true;
+    startY = e.clientY;
+    startWeight = weight;
+    pill.classList.add('active');
+    pill.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  pill.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var steps = Math.round((startY - e.clientY) / PIXELS_PER_STEP);
+    var next = clamp(startWeight + steps * STEP);
+    if (next !== weight) {
+      weight = next;
+      render();
+      if (navigator.vibrate) navigator.vibrate(5);
+    }
+  });
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    pill.classList.remove('active');
+    showPR();
   }
-  render();
-  schedule();
+  pill.addEventListener('pointerup', endDrag);
+  pill.addEventListener('pointercancel', endDrag);
+
+  /* keyboard access for the slider */
+  pill.addEventListener('keydown', function (e) {
+    var delta = 0;
+    if (e.key === 'ArrowUp' || e.key === 'ArrowRight') delta = STEP;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') delta = -STEP;
+    if (!delta) return;
+    e.preventDefault();
+    startWeight = weight;
+    weight = clamp(weight + delta);
+    render();
+  });
 })();
 </script>
 
