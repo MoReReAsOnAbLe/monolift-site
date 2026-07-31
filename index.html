@@ -59,6 +59,7 @@
     <nav class="site-nav" aria-label="Main">
       <a href="#screenshots">Screenshots</a>
       <a href="#how-it-works">How it works</a>
+      <a href="#banano">Banaño</a>
       <a href="#guides">Guides</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta appstore-link" data-ct="web_nav" href="https://apps.apple.com/us/app/monolift-gym-buddy-lift-log/id6766133889?ct=web_nav&amp;mt=8">Download</a>
@@ -94,27 +95,53 @@
         <div class="exercise">
           <p class="name">Bench Press</p>
           <div class="set-row">
-            <span class="pill weight drag" id="drag-pill" role="slider" tabindex="0"
-                  aria-label="Weight — hold and slide, or use arrow keys"
+            <span class="pill weight drag" role="slider" tabindex="0"
+                  data-kind="weight" data-min="45" data-max="500" data-step="5" data-suffix=" lbs"
+                  aria-label="Bench press weight — hold and slide, or use arrow keys"
                   aria-valuemin="45" aria-valuemax="500" aria-valuenow="225"
                   aria-valuetext="225 pounds">225 lbs</span>
             <span class="times">×</span>
-            <span class="pill rep">8</span>
-            <span class="pill rep">8</span>
-            <span class="pill rep">6</span>
+            <span class="pill rep drag" role="slider" tabindex="0"
+                  data-kind="reps" data-min="1" data-max="30" data-step="1"
+                  aria-label="Bench press set 1 reps — hold and slide, or use arrow keys"
+                  aria-valuemin="1" aria-valuemax="30" aria-valuenow="8"
+                  aria-valuetext="8 reps">8</span>
+            <span class="pill rep drag" role="slider" tabindex="0"
+                  data-kind="reps" data-min="1" data-max="30" data-step="1"
+                  aria-label="Bench press set 2 reps — hold and slide, or use arrow keys"
+                  aria-valuemin="1" aria-valuemax="30" aria-valuenow="8"
+                  aria-valuetext="8 reps">8</span>
+            <span class="pill rep drag" role="slider" tabindex="0"
+                  data-kind="reps" data-min="1" data-max="30" data-step="1"
+                  aria-label="Bench press set 3 reps — hold and slide, or use arrow keys"
+                  aria-valuemin="1" aria-valuemax="30" aria-valuenow="6"
+                  aria-valuetext="6 reps">6</span>
           </div>
         </div>
         <div class="exercise">
           <p class="name">Incline Dumbbell Press</p>
           <div class="set-row">
-            <span class="pill weight">70 lbs</span>
+            <span class="pill weight drag" role="slider" tabindex="0"
+                  data-kind="weight" data-min="5" data-max="200" data-step="5" data-suffix=" lbs"
+                  aria-label="Incline dumbbell press weight — hold and slide, or use arrow keys"
+                  aria-valuemin="5" aria-valuemax="200" aria-valuenow="70"
+                  aria-valuetext="70 pounds">70 lbs</span>
             <span class="times">×</span>
-            <span class="pill rep">10</span>
-            <span class="pill rep">9</span>
+            <span class="pill rep drag" role="slider" tabindex="0"
+                  data-kind="reps" data-min="1" data-max="30" data-step="1"
+                  aria-label="Incline dumbbell press set 1 reps — hold and slide, or use arrow keys"
+                  aria-valuemin="1" aria-valuemax="30" aria-valuenow="10"
+                  aria-valuetext="10 reps">10</span>
+            <span class="pill rep drag" role="slider" tabindex="0"
+                  data-kind="reps" data-min="1" data-max="30" data-step="1"
+                  aria-label="Incline dumbbell press set 2 reps — hold and slide, or use arrow keys"
+                  aria-valuemin="1" aria-valuemax="30" aria-valuenow="9"
+                  aria-valuetext="9 reps">9</span>
           </div>
         </div>
-        <p class="demo-hint"><span class="arrows" aria-hidden="true">↕</span> hold the weight, slide to change it — that's the whole app</p>
+        <p class="demo-hint"><span class="arrows" aria-hidden="true">↕</span> hold any number, slide to change it — that's the whole app</p>
         <p class="pr-flash" id="pr-flash" aria-live="polite"></p>
+        <img class="demo-monkey pixel" id="demo-monkey" src="assets/monkey/flex.png" alt="" width="96" height="96" aria-hidden="true">
       </div>
     </div>
   </div>
@@ -171,7 +198,7 @@
       <figure class="shot" role="listitem">
         <img src="assets/screenshot-01-evolve-your-gym-monkey-web.jpg" width="647" height="1400" loading="lazy"
              alt="Monolift gym monkey Banaño evolving through five ranks from Newbie to Legend with hunger, energy and strength stats">
-        <figcaption><strong>Evolve your gym monkey.</strong> Banaño levels up when you log — and sulks when you don't.</figcaption>
+        <figcaption><strong>Evolve your gym monkey.</strong> Banaño ranks up when you log — and sulks when you don't.</figcaption>
       </figure>
       <figure class="shot" role="listitem">
         <img src="assets/screenshot-03-streak-with-your-squad-web.jpg" width="647" height="1400" loading="lazy"
@@ -211,6 +238,33 @@
         <p class="note-line">PR · 235 lbs × 6 · chart updated</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ BANAÑO ============ -->
+<section class="section" id="banano">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">your gym buddy</span>
+      <h2>Meet Banaño</h2>
+      <p>The log is the product. Banaño is the reason you open it on the days you'd rather
+         skip. He ranks up when you train and log — and gets dramatically sad when you don't.</p>
+    </div>
+    <div class="rank-ladder" role="img" aria-label="Banaño's five ranks — Newbie, Lifter, Pro, Beast, Legend — a pixel monkey growing from scrawny to gold-caped champion">
+      <div class="rank rank-newbie"><img class="pixel" src="assets/monkey/rank-newbie.png" alt="" width="256" height="256"><span class="rank-name">Newbie</span></div>
+      <div class="rank rank-lifter"><img class="pixel" src="assets/monkey/rank-lifter.png" alt="" width="256" height="256"><span class="rank-name">Lifter</span></div>
+      <div class="rank rank-pro"><img class="pixel" src="assets/monkey/rank-pro.png" alt="" width="256" height="256"><span class="rank-name">Pro</span></div>
+      <div class="rank rank-beast"><img class="pixel" src="assets/monkey/rank-beast.png" alt="" width="256" height="256"><span class="rank-name">Beast</span></div>
+      <div class="rank rank-legend"><img class="pixel" src="assets/monkey/rank-legend.png" alt="" width="256" height="256"><span class="rank-name">Legend</span></div>
+    </div>
+    <div class="moods">
+      <div class="mood"><p>"I'm hangry, peel me."</p><span class="who">Banaño · when you skip food logs</span></div>
+      <div class="mood"><p>"Legs deceased. RIP."</p><span class="who">Banaño · after leg day</span></div>
+      <div class="mood"><p>"You forgot me again 💔"</p><span class="who">Banaño · when you stop logging</span></div>
+    </div>
+    <p class="banano-note">Hunger drops if you skip food logs. Energy drops if you skip
+       training. Strength only goes up. He lives on your home-screen widget, and your private
+       Squad keeps a group streak — so nobody lets the monkey down alone.</p>
   </div>
 </section>
 
@@ -428,7 +482,10 @@
 <!-- ============ FINAL CTA ============ -->
 <section class="final-cta" id="get">
   <div class="container">
-    <img class="icon" src="assets/app-icon-360.png" alt="Monolift app icon" width="84" height="84">
+    <div class="cta-scene">
+      <img class="icon" src="assets/app-icon-360.png" alt="Monolift app icon" width="84" height="84">
+      <img class="cameo pixel" src="assets/monkey/peek.png" alt="Banaño the pixel gym monkey at Legend rank, flexing out of an open banana peel" width="74" height="74">
+    </div>
     <h2>Stop tapping.<br>Start lifting.</h2>
     <p>Your next workout takes the same effort as typing a note — and this time the
        numbers go somewhere. Try everything free for 7 days.</p>
@@ -502,69 +559,97 @@
     });
   }
 
-  /* --- hero drag-to-dial demo --- */
-  var pill = document.getElementById('drag-pill');
+  /* --- hero drag-to-dial demo: every number pill is draggable --- */
   var flash = document.getElementById('pr-flash');
-  if (!pill) return;
-  var weight = 225, startWeight = 225, startY = 0, dragging = false, flashTimer = null;
-  var MIN = 45, MAX = 500, STEP = 5, PIXELS_PER_STEP = 14;
+  var monkey = document.getElementById('demo-monkey');
+  var flashTimer = null, monkeyTimer = null;
+  var PIXELS_PER_STEP = 14;
 
-  function render() {
-    pill.textContent = weight + ' lbs';
-    pill.setAttribute('aria-valuenow', weight);
-    pill.setAttribute('aria-valuetext', weight + ' pounds');
-  }
-  function clamp(w) { return Math.min(MAX, Math.max(MIN, w)); }
-  function showPR() {
-    if (weight > startWeight) {
-      flash.textContent = '🏆 ' + weight + ' lbs — new PR territory. Logged.';
-    } else if (weight < startWeight) {
-      flash.textContent = 'Deload noted. Smart.';
-    } else {
-      return;
-    }
+  function celebrate(kind, value, suffix) {
+    flash.textContent = kind === 'weight'
+      ? '🏆 ' + value + suffix + ' — new PR territory. Logged.'
+      : '🏆 ' + value + ' reps — rep PR. Logged.';
     flash.classList.add('show');
+    monkey.classList.add('show');
     clearTimeout(flashTimer);
+    clearTimeout(monkeyTimer);
     flashTimer = setTimeout(function () { flash.classList.remove('show'); }, 2200);
+    monkeyTimer = setTimeout(function () { monkey.classList.remove('show'); }, 2200);
+  }
+  function note(msg) {
+    flash.textContent = msg;
+    flash.classList.add('show');
+    monkey.classList.add('show');
+    clearTimeout(flashTimer);
+    clearTimeout(monkeyTimer);
+    flashTimer = setTimeout(function () { flash.classList.remove('show'); }, 2200);
+    monkeyTimer = setTimeout(function () { monkey.classList.remove('show'); }, 2200);
   }
 
-  pill.addEventListener('pointerdown', function (e) {
-    dragging = true;
-    startY = e.clientY;
-    startWeight = weight;
-    pill.classList.add('active');
-    pill.setPointerCapture(e.pointerId);
-    e.preventDefault();
-  });
-  pill.addEventListener('pointermove', function (e) {
-    if (!dragging) return;
-    var steps = Math.round((startY - e.clientY) / PIXELS_PER_STEP);
-    var next = clamp(startWeight + steps * STEP);
-    if (next !== weight) {
-      weight = next;
-      render();
-      if (navigator.vibrate) navigator.vibrate(5);
+  document.querySelectorAll('.pill.drag').forEach(function (pill) {
+    var min = +pill.dataset.min, max = +pill.dataset.max, step = +pill.dataset.step;
+    var suffix = pill.dataset.suffix || '';
+    var kind = pill.dataset.kind;
+    var value = parseInt(pill.textContent, 10);
+    var startVal = value, startY = 0, dragging = false, activeId = null, kbTimer = null;
+
+    function clamp(v) { return Math.min(max, Math.max(min, v)); }
+    function render() {
+      pill.textContent = value + suffix;
+      pill.setAttribute('aria-valuenow', value);
+      pill.setAttribute('aria-valuetext', value + (kind === 'weight' ? ' pounds' : ' reps'));
     }
-  });
-  function endDrag() {
-    if (!dragging) return;
-    dragging = false;
-    pill.classList.remove('active');
-    showPR();
-  }
-  pill.addEventListener('pointerup', endDrag);
-  pill.addEventListener('pointercancel', endDrag);
+    function settle() {
+      if (value > startVal) celebrate(kind, value, suffix);
+      else if (value < startVal && kind === 'weight') note('Deload noted. Smart.');
+      startVal = value;
+    }
 
-  /* keyboard access for the slider */
-  pill.addEventListener('keydown', function (e) {
-    var delta = 0;
-    if (e.key === 'ArrowUp' || e.key === 'ArrowRight') delta = STEP;
-    if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') delta = -STEP;
-    if (!delta) return;
-    e.preventDefault();
-    startWeight = weight;
-    weight = clamp(weight + delta);
-    render();
+    pill.addEventListener('pointerdown', function (e) {
+      if (dragging) return;
+      dragging = true;
+      activeId = e.pointerId;
+      startY = e.clientY;
+      startVal = value;
+      pill.classList.add('active');
+      pill.setPointerCapture(e.pointerId);
+      e.preventDefault();
+      pill.focus();
+    });
+    pill.addEventListener('pointermove', function (e) {
+      if (!dragging || e.pointerId !== activeId) return;
+      var steps = Math.round((startY - e.clientY) / PIXELS_PER_STEP);
+      var next = clamp(startVal + steps * step);
+      if (next !== value) {
+        value = next;
+        render();
+        if (navigator.vibrate) navigator.vibrate(5);
+      }
+    });
+    function endDrag(e) {
+      if (!dragging || e.pointerId !== activeId) return;
+      dragging = false;
+      activeId = null;
+      pill.classList.remove('active');
+      settle();
+    }
+    pill.addEventListener('pointerup', endDrag);
+    pill.addEventListener('pointercancel', endDrag);
+
+    pill.addEventListener('focus', function () { startVal = value; });
+    pill.addEventListener('keydown', function (e) {
+      var next = value;
+      if (e.key === 'ArrowUp' || e.key === 'ArrowRight') next = clamp(value + step);
+      else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') next = clamp(value - step);
+      else if (e.key === 'Home') next = min;
+      else if (e.key === 'End') next = max;
+      else return;
+      e.preventDefault();
+      value = next;
+      render();
+      clearTimeout(kbTimer);
+      kbTimer = setTimeout(settle, 600);
+    });
   });
 })();
 </script>

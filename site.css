@@ -157,6 +157,7 @@ h3 { font-size: 1.12rem; font-weight: 700; letter-spacing: -0.01em; }
 /* ---------- the drag-dial demo card ---------- */
 .demo-wrap { position: relative; }
 .demo-card {
+  position: relative;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -330,6 +331,91 @@ h3 { font-size: 1.12rem; font-weight: 700; letter-spacing: -0.01em; }
 .final-cta img.icon { width: 84px; height: 84px; border-radius: 19px; margin-bottom: 22px; box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5); }
 .final-cta h2 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
 .final-cta p { color: var(--paper-dim); max-width: 40em; margin: 14px auto 26px; }
+
+/* ---------- Banaño ---------- */
+.pixel { image-rendering: pixelated; }
+
+.rank-ladder {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(6px, 3vw, 30px);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 34px 12px 22px;
+}
+.rank { text-align: center; }
+.rank img { display: block; margin: 0 auto 8px; height: auto; }
+.rank-name {
+  font-family: var(--font-note);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.rank-newbie .rank-name { color: var(--muted); }
+.rank-lifter .rank-name { color: var(--green); }
+.rank-pro .rank-name { color: var(--cyan); }
+.rank-beast .rank-name { color: var(--purple); }
+.rank-legend .rank-name { color: var(--gold); }
+.rank-newbie img { width: clamp(30px, 8vw, 72px); }
+.rank-lifter img { width: clamp(36px, 9.5vw, 86px); }
+.rank-pro img { width: clamp(42px, 11vw, 100px); }
+.rank-beast img { width: clamp(50px, 13vw, 118px); }
+.rank-legend img { width: clamp(60px, 15vw, 138px); }
+
+.moods { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+.mood {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px 14px 14px 4px;
+  padding: 12px 18px;
+  max-width: 250px;
+}
+.mood p { font-size: 0.97rem; }
+.mood .who {
+  display: block;
+  font-family: var(--font-note);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.banano-note { color: var(--paper-dim); font-size: 0.97rem; max-width: 60ch; margin-top: 26px; }
+
+/* monkey PR reaction in the hero demo */
+.demo-monkey {
+  position: absolute;
+  right: -10px;
+  bottom: -16px;
+  width: 96px;
+  height: auto;
+  opacity: 0;
+  transform: translateY(14px) scale(0.7);
+  transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+.demo-monkey.show { opacity: 1; transform: translateY(0) scale(1); }
+
+/* final CTA cameo */
+.cta-scene { display: flex; align-items: flex-end; justify-content: center; gap: 4px; margin-bottom: 22px; }
+.cta-scene img.icon { margin-bottom: 0; }
+.cta-scene .cameo { width: 74px; height: auto; margin-bottom: -8px; }
+
+/* ---------- 404 ---------- */
+.error-page {
+  min-height: 72vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 60px 22px;
+}
+.error-page img { width: 150px; height: auto; margin: 0 auto 20px; }
+.error-page h1 { font-size: clamp(2rem, 6vw, 3.2rem); }
+.error-page .quote { color: var(--paper-dim); margin: 14px auto 6px; }
+.error-page .quote .who { font-family: var(--font-note); font-size: 0.75rem; color: var(--muted); display: block; margin-top: 4px; }
+.error-page nav { margin-top: 26px; display: flex; gap: 22px; justify-content: center; }
 
 /* footer */
 .site-footer { padding: 44px 0 56px; color: var(--muted); font-size: 0.88rem; }
